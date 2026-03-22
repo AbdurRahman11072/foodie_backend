@@ -10,8 +10,6 @@ const authMiddleware = (role: string[]) => {
         headers: req.headers as any,
       });
 
-      console.log(role);
-
       if (!session) {
         return new customeError(
           httpStatus.NOT_FOUND,
