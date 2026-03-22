@@ -1,5 +1,5 @@
 import app from './app';
-import { prisma } from './app/lib/prisma';
+import { prisma } from './lib/prisma';
 const PORT = process.env.PORT || 5000;
 
 export async function server() {
@@ -7,7 +7,7 @@ export async function server() {
     await prisma.$connect();
     console.log('Database connection successful');
     app.listen(PORT, () => {
-      console.log(`server is runnig on : https://localhost:${PORT}`);
+      console.log(`server is runnig on : http://localhost:${PORT}/`);
     });
   } catch (error) {
     await prisma.$disconnect();
