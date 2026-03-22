@@ -2,6 +2,7 @@ import { toNodeHandler } from 'better-auth/node';
 import cors from 'cors';
 import express, { Application } from 'express';
 import httpStatus from 'http-status';
+import globalErrorHandler from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import { RootRoutes } from './app/routes';
 import { auth } from './lib/auth';
@@ -21,5 +22,6 @@ app.get('/', async (req, res) => {
     data: null,
   });
 });
+app.use(globalErrorHandler);
 app.use(notFound);
 export default app;
