@@ -1,18 +1,17 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 const customeResponse = (
+  res: Response,
   status: number,
   success: boolean,
   message: string,
   data: any
 ) => {
-  async (req: Request, res: Response) => {
-    res.status(status).json({
-      success,
-      message,
-      data,
-    });
-  };
+  res.status(status).json({
+    success,
+    message,
+    data,
+  });
 };
 
 export default customeResponse;
