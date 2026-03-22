@@ -6,7 +6,7 @@ const customeResponse = (
   message: string,
   data: any
 ) => {
-  return async (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     res.status(status).json({
       success,
       message,

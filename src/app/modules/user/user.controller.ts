@@ -1,18 +1,20 @@
-import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import customeError from '../../error/customeError';
+import asyncHandler from '../../utils/asyncHandler';
 import customeResponse from '../../utils/response';
 import { userService } from './user.service';
 
-const getAllUser = async (req: Request, res: Response) => {
-  try {
-    const result = await userService.getAllUser();
+const getAllUser = asyncHandler(async (req, res) => {
+  console.log();
 
-    customeResponse(httpStatus.OK, true, 'Data found', result);
-  } catch (error) {
-    customeResponse(httpStatus.BAD_REQUEST, false, 'No user found', null);
+  const result = await userService.getAllUser();
+
+  if (result.length === 0) {
+    throw new customeError(httpStatus.NOT_FOUND, 'No user available');
   }
-};
 
+  customeResponse(httpStatus.OK, true, 'Data found', result);
+});
 export const userController = {
   getAllUser,
 };
