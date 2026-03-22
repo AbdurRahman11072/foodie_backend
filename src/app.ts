@@ -2,6 +2,8 @@ import { toNodeHandler } from 'better-auth/node';
 import cors from 'cors';
 import express, { Application } from 'express';
 import httpStatus from 'http-status';
+import notFound from './app/middleware/notFound';
+import { RootRoutes } from './app/routes';
 import { auth } from './lib/auth';
 
 const app: Application = express();
@@ -10,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.all('/api/auth/*spalt', toNodeHandler(auth));
+app.use('/api/v1', RootRoutes);
 
 app.get('/', async (req, res) => {
   res.status(httpStatus.OK).json({
@@ -18,5 +21,5 @@ app.get('/', async (req, res) => {
     data: null,
   });
 });
-
+app.use(notFound);
 export default app;
