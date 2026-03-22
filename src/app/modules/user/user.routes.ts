@@ -6,6 +6,11 @@ import { userController } from './user.controller';
 const router: Router = Router();
 
 router.get('/', authMiddleware([userRole.admin]), userController.getAllUser);
+router.get(
+  '/:id',
+  authMiddleware([userRole.admin, userRole.user, userRole.provider]),
+  userController.getUserById
+);
 router.put(
   '/:id',
   authMiddleware([userRole.admin, userRole.user, userRole.provider]),

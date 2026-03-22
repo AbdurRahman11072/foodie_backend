@@ -30,7 +30,14 @@ const updateUser = asyncHandler(async (req, res) => {
       'You do not have permission to update this user'
     );
   }
+
+  if (data.role === 'admin' && !isAdmin) {
+    throw new customeError(httpStatus.UNAUTHORIZED, 'Unauthorized accesss');
+  }
+
   const result = await userService.updateUser(id as string, data);
+  console.log(result);
+
   customeResponse(
     res,
     httpStatus.OK,
@@ -39,8 +46,24 @@ const updateUser = asyncHandler(async (req, res) => {
     result
   );
 });
+const getUserById = asyncHandler(async (req, res) => {
+  const ownerId = req.user?.id as string;
+  const { id } = req.params;
+  const isAdmin = req.user?.role === userRole.admin;
+  const isOwner = ownerId === id;
+  if (!isOwner && !isAdmin) {
+    throw new customeError(
+      httpStatus.FORBIDDEN,
+      'Your not the onwer of the data you want to access. Please try a with vaild account'
+    );
+  }
+  const result = await userService.getUserById(id as string);
+
+  customeResponse(res, httpStatus.OK, true, 'User found', result);
+});
 
 export const userController = {
   getAllUser,
   updateUser,
+  getUserById,
 };

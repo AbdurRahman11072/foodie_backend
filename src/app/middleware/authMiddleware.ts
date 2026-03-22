@@ -11,7 +11,7 @@ const authMiddleware = (role: string[]) => {
       });
 
       if (!session) {
-        return new customeError(
+        throw new customeError(
           httpStatus.NOT_FOUND,
           'Unauthorized user. Please log in first'
         );
@@ -26,8 +26,10 @@ const authMiddleware = (role: string[]) => {
       };
 
       if (!role.includes(session?.user?.role as string)) {
-        return new customeError(httpStatus.FORBIDDEN, 'Unauthorized access');
+        throw new customeError(httpStatus.FORBIDDEN, 'Unauthorized access');
       }
+      console.log();
+
       next();
     } catch (error) {
       throw new customeError(httpStatus.FORBIDDEN, 'Unauthorized access');
