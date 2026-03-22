@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { envConfig } from '../config.ts/envConfig';
+import { envConfig } from '../config/envConfig';
 
 const globalErrorHandler = (
   error: any,

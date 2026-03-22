@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { auth } from '../../lib/auth';
 import { prisma } from '../../lib/prisma';
 
-import { envConfig } from '../config.ts/envConfig';
+import { envConfig } from '../config/envConfig';
 import customeError from '../error/customeError';
 
 const seedAdmin = async () => {
