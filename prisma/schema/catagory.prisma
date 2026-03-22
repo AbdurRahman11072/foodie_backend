@@ -1,0 +1,9 @@
+model catagory {
+  id        String   @id @default(uuid())
+  name      String
+  coverImg  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  meals meals[]
+}

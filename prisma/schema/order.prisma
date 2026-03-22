@@ -1,0 +1,23 @@
+enum OrderStatus {
+  PREPARING
+  READY
+  DELIVERED
+  CANCELLED
+}
+
+model orders {
+  id            String      @id @default(uuid())
+  userId        String
+  address       String
+  phoneNumber   String
+  totalPrice    Float
+  status        OrderStatus @default(PREPARING)
+  paymentMethod String
+  items         meals[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  reviews reviews?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -8,6 +8,11 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/catagory'
+export type * from './models/orders'
+export type * from './models/restaurants'
+export type * from './models/meals'
+export type * from './models/reviews'
 export type * from './models/User'
 export type * from './models/Session'
 export type * from './models/Account'
