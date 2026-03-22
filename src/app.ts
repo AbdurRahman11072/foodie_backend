@@ -5,6 +5,7 @@ import httpStatus from 'http-status';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import { RootRoutes } from './app/routes';
+
 import { auth } from './lib/auth';
 
 const app: Application = express();
@@ -22,6 +23,7 @@ app.get('/', async (req, res) => {
     data: null,
   });
 });
+
 app.use(globalErrorHandler);
 app.use(notFound);
 export default app;

@@ -7,7 +7,8 @@
     "dev": "tsx watch src/server.ts",
     "build": "prisma generate && tsc && node dist/server.js",
     "mg": "npx prisma migrate dev",
-    "ge": " npx prisma generate"
+    "ge": " npx prisma generate",
+    "seed": "tsx src/app/script/seedAdmin.ts"
   },
   "keywords": [],
   "author": "",
