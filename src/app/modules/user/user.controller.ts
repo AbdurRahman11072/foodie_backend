@@ -15,6 +15,8 @@ const getAllUser = asyncHandler(async (req, res) => {
   customeResponse(res, httpStatus.OK, true, 'Data found', result);
 });
 
+// ??  * Updates a user's information with role-based permission checks.
+// ?? * Only admins or the user themselves can update; role changes and banning actions are restricted to admins only.
 const updateUser = asyncHandler(async (req, res) => {
   const data = req.body;
   const { id } = req.params;
@@ -32,11 +34,20 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 
   if (data.role === 'admin' && !isAdmin) {
-    throw new customeError(httpStatus.UNAUTHORIZED, 'Unauthorized accesss');
+    throw new customeError(
+      httpStatus.UNAUTHORIZED,
+      'Only administrators can update user roles'
+    );
+  }
+
+  if (!isAdmin && data?.banned !== undefined) {
+    throw new customeError(
+      httpStatus.UNAUTHORIZED,
+      'Only administrators can ban or unban users'
+    );
   }
 
   const result = await userService.updateUser(id as string, data);
-  console.log(result);
 
   customeResponse(
     res,
@@ -46,6 +57,9 @@ const updateUser = asyncHandler(async (req, res) => {
     result
   );
 });
+
+// ?? * Retrieves a user by ID with access control.
+// ?? * Only the user themselves or an admin can view the user details.
 const getUserById = asyncHandler(async (req, res) => {
   const ownerId = req.user?.id as string;
   const { id } = req.params;

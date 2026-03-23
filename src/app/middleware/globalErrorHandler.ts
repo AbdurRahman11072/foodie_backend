@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { envConfig } from '../config/envConfig';
+import httpStatus from 'http-status';
+import customeError from '../error/customeError';
 
 const globalErrorHandler = (
   error: any,
@@ -7,9 +8,14 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  const isDev = envConfig.NODE_ENV === 'dev';
+  const isDev = process.env.NODE_ENV === 'dev';
+  let statusCode = error.statusCode || 500;
 
-  res.status(error.statusCode).json({
+  if (error.code === 'P2002') {
+    throw new customeError(httpStatus.CONFLICT, 'Already exist');
+  }
+
+  res.status(statusCode).json({
     success: error.success,
     message: error.message,
     ...(isDev && {

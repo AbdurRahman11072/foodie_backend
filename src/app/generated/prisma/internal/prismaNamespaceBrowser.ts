@@ -114,6 +114,7 @@ export const RestaurantsScalarFieldEnum = {
   closingTime: 'closingTime',
   offday: 'offday',
   rating: 'rating',
+  banned: 'banned',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

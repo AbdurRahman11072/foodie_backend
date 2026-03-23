@@ -28,7 +28,6 @@ const authMiddleware = (role: string[]) => {
       if (!role.includes(session?.user?.role as string)) {
         throw new customeError(httpStatus.FORBIDDEN, 'Unauthorized access');
       }
-      console.log();
 
       next();
     } catch (error) {
