@@ -124,7 +124,7 @@ export type RestaurantsScalarFieldEnum = (typeof RestaurantsScalarFieldEnum)[key
 
 export const MealsScalarFieldEnum = {
   id: 'id',
-  restaurantsId: 'restaurantsId',
+  restaurantId: 'restaurantId',
   name: 'name',
   coverImg: 'coverImg',
   description: 'description',

@@ -59,11 +59,20 @@ const updateRestaurantInfo = asyncHandler(async (req, res) => {
   const userId = req.user?.id;
   const data = req.body;
   const { id } = req.params;
+  const isAdmin = userRole.admin === req.user?.role;
+  const banned = data.banned !== undefined;
 
   if (data.ownerId !== undefined) {
     throw new customeError(
       httpStatus.FORBIDDEN,
       `You do not have permission to update this owner`
+    );
+  }
+
+  if (!isAdmin && !banned) {
+    throw new customeError(
+      httpStatus.FORBIDDEN,
+      `You do not have permission to banned this restaurant `
     );
   }
   const result = await restaurantSevices.updateRestaurantInfo(

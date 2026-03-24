@@ -19,7 +19,7 @@ model restaurants {
 
 model meals {
   id            String     @id @default(uuid())
-  restaurantsId String
+  restaurantId String
   name          String
   coverImg      String
   description   String
@@ -36,7 +36,7 @@ model meals {
 
   orders orders[]
 
-  restaurant restaurants @relation(fields: [restaurantsId], references: [id], onDelete: Cascade)
+  restaurant restaurants @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   
 
 }
