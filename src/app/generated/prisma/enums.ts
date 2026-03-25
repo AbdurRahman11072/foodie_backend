@@ -10,13 +10,21 @@
 */
 
 export const OrderStatus = {
+  DELIVERING: 'DELIVERING',
+  COMPLETE: 'COMPLETE'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+
+
+export const OrderItemStatus = {
   PREPARING: 'PREPARING',
   READY: 'READY',
   DELIVERED: 'DELIVERED',
   CANCELLED: 'CANCELLED'
 } as const
 
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+export type OrderItemStatus = (typeof OrderItemStatus)[keyof typeof OrderItemStatus]
 
 
 export const Roles = {

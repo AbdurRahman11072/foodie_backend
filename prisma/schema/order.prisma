@@ -1,4 +1,9 @@
 enum OrderStatus {
+  DELIVERING
+  COMPLETE
+}
+
+enum OrderItemStatus {
   PREPARING
   READY
   DELIVERED
@@ -7,17 +12,51 @@ enum OrderStatus {
 
 model orders {
   id            String      @id @default(uuid())
+  orderId       String
   userId        String
   address       String
   phoneNumber   String
   totalPrice    Float
-  status        OrderStatus @default(PREPARING)
+  status        OrderStatus @default(DELIVERING)
   paymentMethod String
-  items         meals[]
+ 
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
-  reviews reviews?
+  
+  items     orderItems[]
+  
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderId])
+
+}
+
+model orderItems {
+    id          String      @id @default(uuid())
+    orderId     String
+    restaurantId String
+    restaurantName String
+    mealId      String
+    mealName    String
+    mealImg     String
+    quantity    Int
+    price       Float
+    totalPrice  Float
+    status      OrderItemStatus @default(PREPARING)
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
+
+
+    order orders @relation(fields: [orderId], references: [id], onDelete: Cascade )
+    restaurant restaurants @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+    meal meals @relation(fields: [mealId], references: [id], onDelete: Cascade)
+
+    @@index([orderId])
+    @@index([restaurantId])
+    @@index([mealId])
+    @@index([status])
 }

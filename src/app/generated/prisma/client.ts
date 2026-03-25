@@ -30,7 +30,7 @@ export * from "./enums"
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
  * // Fetch zero or more Catagories
- * const catagories = await prisma.catagory.findMany()
+ * const catagories = await prisma.catagories.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -40,15 +40,20 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model catagory
+ * Model catagories
  * 
  */
-export type catagory = Prisma.catagoryModel
+export type catagories = Prisma.catagoriesModel
 /**
  * Model orders
  * 
  */
 export type orders = Prisma.ordersModel
+/**
+ * Model orderItems
+ * 
+ */
+export type orderItems = Prisma.orderItemsModel
 /**
  * Model restaurants
  * 

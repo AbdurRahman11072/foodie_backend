@@ -1,4 +1,4 @@
-model catagory {
+model catagories {
   id        String   @id @default(uuid())
   name      String @unique
   coverImg  String
@@ -6,4 +6,8 @@ model catagory {
   updatedAt DateTime @updatedAt
 
   meals meals[]
+  
+
+  @@index([name])
+  @@index([id])
 }

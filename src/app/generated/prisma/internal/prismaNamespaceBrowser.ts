@@ -51,8 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  catagory: 'catagory',
+  catagories: 'catagories',
   orders: 'orders',
+  orderItems: 'orderItems',
   restaurants: 'restaurants',
   meals: 'meals',
   reviews: 'reviews',
@@ -78,7 +79,7 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const CatagoryScalarFieldEnum = {
+export const CatagoriesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   coverImg: 'coverImg',
@@ -86,11 +87,12 @@ export const CatagoryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type CatagoryScalarFieldEnum = (typeof CatagoryScalarFieldEnum)[keyof typeof CatagoryScalarFieldEnum]
+export type CatagoriesScalarFieldEnum = (typeof CatagoriesScalarFieldEnum)[keyof typeof CatagoriesScalarFieldEnum]
 
 
 export const OrdersScalarFieldEnum = {
   id: 'id',
+  orderId: 'orderId',
   userId: 'userId',
   address: 'address',
   phoneNumber: 'phoneNumber',
@@ -102,6 +104,25 @@ export const OrdersScalarFieldEnum = {
 } as const
 
 export type OrdersScalarFieldEnum = (typeof OrdersScalarFieldEnum)[keyof typeof OrdersScalarFieldEnum]
+
+
+export const OrderItemsScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  restaurantId: 'restaurantId',
+  restaurantName: 'restaurantName',
+  mealId: 'mealId',
+  mealName: 'mealName',
+  mealImg: 'mealImg',
+  quantity: 'quantity',
+  price: 'price',
+  totalPrice: 'totalPrice',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderItemsScalarFieldEnum = (typeof OrderItemsScalarFieldEnum)[keyof typeof OrderItemsScalarFieldEnum]
 
 
 export const RestaurantsScalarFieldEnum = {

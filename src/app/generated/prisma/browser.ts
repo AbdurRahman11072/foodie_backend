@@ -18,15 +18,20 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model catagory
+ * Model catagories
  * 
  */
-export type catagory = Prisma.catagoryModel
+export type catagories = Prisma.catagoriesModel
 /**
  * Model orders
  * 
  */
 export type orders = Prisma.ordersModel
+/**
+ * Model orderItems
+ * 
+ */
+export type orderItems = Prisma.orderItemsModel
 /**
  * Model restaurants
  * 
