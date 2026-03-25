@@ -1,14 +1,14 @@
 import httpStatus from 'http-status';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
-import { catagory } from '../../generated/prisma/client';
+import { catagories } from '../../generated/prisma/client';
 
 const getAllCatagory = async () => {
-  return await prisma.catagory.findMany();
+  return await prisma.catagories.findMany();
 };
 
-const createCatagory = async (data: catagory) => {
-  const isCatagoryExist = await prisma.catagory.findFirst({
+const createCatagory = async (data: catagories) => {
+  const isCatagoryExist = await prisma.catagories.findFirst({
     where: {
       name: data.name,
     },
@@ -17,13 +17,13 @@ const createCatagory = async (data: catagory) => {
   if (isCatagoryExist !== null) {
     throw new customeError(httpStatus.BAD_REQUEST, 'catagory already exist');
   }
-  return await prisma.catagory.create({
+  return await prisma.catagories.create({
     data: data,
   });
 };
 
-const updateCatagoryInfo = async (id: string, data: Partial<catagory>) => {
-  const isCatagoryExist = await prisma.catagory.findFirst({
+const updateCatagoryInfo = async (id: string, data: Partial<catagories>) => {
+  const isCatagoryExist = await prisma.catagories.findFirst({
     where: {
       id,
     },
@@ -33,13 +33,13 @@ const updateCatagoryInfo = async (id: string, data: Partial<catagory>) => {
     throw new customeError(httpStatus.BAD_REQUEST, `catagory doesn't exist`);
   }
 
-  return await prisma.catagory.update({
+  return await prisma.catagories.update({
     where: { id },
     data: data,
   });
 };
 const deleteCatagory = async (id: string) => {
-  const isCatagoryExist = await prisma.catagory.findFirst({
+  const isCatagoryExist = await prisma.catagories.findFirst({
     where: {
       id,
     },
@@ -49,7 +49,7 @@ const deleteCatagory = async (id: string) => {
     throw new customeError(httpStatus.BAD_REQUEST, `catagory doesn't exist`);
   }
 
-  return await prisma.catagory.delete({
+  return await prisma.catagories.delete({
     where: { id },
   });
 };
