@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import { meals } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
+import { meals } from '../../generated/prisma/client';
 
 const getAllMeals = async () => {
   return await prisma.meals.findMany();

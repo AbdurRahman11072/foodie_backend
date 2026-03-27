@@ -1,8 +1,8 @@
 import httpStatus from 'http-status';
-import { restaurants } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 import userRole from '../../constant';
 import customeError from '../../error/customeError';
+import { restaurants } from './../../generated/prisma/client';
 
 const getAllRestaurant = async () => {
   return await prisma.restaurants.findMany();

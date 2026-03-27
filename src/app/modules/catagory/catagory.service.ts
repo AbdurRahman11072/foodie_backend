@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
-import { catagories } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
+import { catagories } from '../../generated/prisma/client';
 
 const getAllCatagory = async () => {
   return await prisma.catagories.findMany();

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
+import customeError from '../error/customeError';
 
 const globalErrorHandler = (
   error: any,
@@ -9,16 +10,14 @@ const globalErrorHandler = (
 ) => {
   const isDev = process.env.NODE_ENV === 'dev';
   let statusCode = error.statusCode || 500;
-  let message = error.message || 'Internal Server Error';
 
   if (error.code === 'P2002') {
-    statusCode = httpStatus.CONFLICT;
-    message = 'Already exist';
+    throw new customeError(httpStatus.CONFLICT, 'Already exist');
   }
 
   res.status(statusCode).json({
-    success: false,
-    message: message,
+    success: error.success,
+    message: error.message,
     ...(isDev && {
       error: error,
       stackTrace: error.stack,

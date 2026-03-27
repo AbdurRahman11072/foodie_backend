@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "build": "prisma generate && tsc",
     "mg": "npx prisma migrate dev",
     "ge": " npx prisma generate",
     "seed": "tsx src/app/script/seedAdmin.ts",
-    "build": "prisma generate && tsc && node scripts/fix-imports.js",
     "start": "node dist/server.js"
   },
   "keywords": [],

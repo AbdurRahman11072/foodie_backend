@@ -1,5 +1,5 @@
-import { reviews } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
+import { reviews } from '../../generated/prisma/client';
 
 const getAllReviews = async () => {
   return await prisma.reviews.findMany();
