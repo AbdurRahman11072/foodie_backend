@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
+import { orders } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
-import { orders } from '../../generated/prisma/client';
 
 const getAllOrders = async () => {
   return await prisma.orders.findMany();
