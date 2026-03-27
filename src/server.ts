@@ -1,4 +1,5 @@
 import app from './app';
+import { envConfig } from './app/config/envConfig';
 import { prisma } from './lib/prisma';
 const PORT = process.env.PORT || 5000;
 
@@ -16,4 +17,6 @@ export async function server() {
   }
 }
 
-server();
+if (envConfig.NODE_ENV === 'dev') {
+  server();
+}
