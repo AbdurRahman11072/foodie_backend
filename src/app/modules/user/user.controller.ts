@@ -6,6 +6,8 @@ import customeResponse from '../../utils/response';
 import { userService } from './user.service';
 
 const getAllUser = asyncHandler(async (req, res) => {
+  const { page, item } = req.query;
+  console.log(page, item);
   const result = await userService.getAllUser();
 
   if (result.length === 0) {
