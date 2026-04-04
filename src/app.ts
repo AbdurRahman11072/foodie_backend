@@ -10,7 +10,12 @@ import { auth } from './lib/auth';
 
 const app: Application = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000', // Your frontend URL
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.all('/api/auth/*spalt', toNodeHandler(auth));

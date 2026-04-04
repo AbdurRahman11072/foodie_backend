@@ -255,7 +255,7 @@ export type MealsGroupByOutputType = {
   _max: MealsMaxAggregateOutputType | null
 }
 
-type GetMealsGroupByPayload<T extends mealsGroupByArgs> = Prisma.PrismaPromise<
+export type GetMealsGroupByPayload<T extends mealsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<MealsGroupByOutputType, T['by']> &
       {

@@ -16,7 +16,7 @@ enum Roles {
 model User {
   id            String    @id  @default(uuid())
   name          String
-  email         String    
+  email         String    @unique(map: "user_email_unique")
   emailVerified Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
