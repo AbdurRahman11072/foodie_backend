@@ -40,6 +40,32 @@ const getMealsById = async (id: string) => {
   });
 };
 
+const getMealsByRestaurantId = async (id: string) => {
+  const restaurantId = await prisma.user.findFirst({
+    where: { id },
+    select: {
+      restaurant: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+
+  const resId = restaurantId?.restaurant?.id;
+
+  if (!restaurantId) {
+    throw new customeError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      'Something went wrong'
+    );
+  }
+
+  return await prisma.meals.findMany({
+    where: { restaurantId: resId as string },
+  });
+};
+
 const updateMealsInfo = async (
   userId: string,
   id: string,
@@ -80,4 +106,5 @@ export const mealsServices = {
   createMeals,
   getMealsById,
   updateMealsInfo,
+  getMealsByRestaurantId,
 };

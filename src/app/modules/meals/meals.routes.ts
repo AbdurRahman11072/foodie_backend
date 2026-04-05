@@ -7,6 +7,7 @@ const router: Router = Router();
 
 router.get('/', mealsController.getAllMeals);
 router.get('/:id', mealsController.getMealsById);
+router.get('/restaurant/:id', mealsController.getMealsByRestaurantId);
 router.post(
   '/',
   authMiddleware([userRole.admin, userRole.provider]),

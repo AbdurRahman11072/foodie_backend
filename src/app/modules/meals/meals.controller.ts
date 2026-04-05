@@ -39,7 +39,22 @@ const getMealsById = asyncHandler(async (req, res) => {
   if (result === null) {
     throw new customeError(
       httpStatus.NOT_FOUND,
-      `Not meals with the ( id:${id} ) available in database`
+      `No meals with the ( id:${id} ) available in database`
+    );
+  }
+  customeResponse(res, httpStatus.OK, true, 'All meals data', result);
+});
+const getMealsByRestaurantId = asyncHandler(async (req, res) => {
+  console.log('This route has been hit');
+
+  const { id } = req.params;
+
+  const result = await mealsServices.getMealsByRestaurantId(id as string);
+
+  if (result === null) {
+    throw new customeError(
+      httpStatus.NOT_FOUND,
+      `No meals with the ( id:${id} ) available in database`
     );
   }
   customeResponse(res, httpStatus.OK, true, 'All meals data', result);
@@ -69,4 +84,5 @@ export const mealsController = {
   createMeals,
   getMealsById,
   updateMealsInfo,
+  getMealsByRestaurantId,
 };
