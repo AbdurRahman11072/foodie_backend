@@ -32,7 +32,7 @@ model meals {
   description   String
   price         Float
   rating        Float   @default(0)
-  catagory      catagories[]
+  category      categories[]
   available     Boolean
   ingredients   String[]
   allergens     String[]

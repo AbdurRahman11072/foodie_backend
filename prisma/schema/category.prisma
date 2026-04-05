@@ -1,4 +1,4 @@
-model catagories {
+model categories {
   id        String   @id @default(uuid())
   name      String @unique
   coverImg  String
