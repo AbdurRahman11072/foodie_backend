@@ -7,12 +7,13 @@ const router: Router = Router();
 
 router.get(
   '/',
-  authMiddleware([userRole.admin]),
+
   CategoryController.getAllCategory
 );
 router.post(
   '/',
   authMiddleware([userRole.admin]),
+  // upload.single('coverImg'),
   CategoryController.createCategory
 );
 router.put(

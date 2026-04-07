@@ -45,8 +45,6 @@ const getMealsById = asyncHandler(async (req, res) => {
   customeResponse(res, httpStatus.OK, true, 'All meals data', result);
 });
 const getMealsByRestaurantId = asyncHandler(async (req, res) => {
-  console.log('This route has been hit');
-
   const { id } = req.params;
 
   const result = await mealsServices.getMealsByRestaurantId(id as string);

@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import customeError from '../../error/customeError';
 import asyncHandler from '../../utils/asyncHandler';
+import { uploadOnCloudinary } from '../../utils/cloudinary';
 import customeResponse from '../../utils/response';
 import { CategoryService } from './catagory.service';
 
@@ -18,7 +19,21 @@ const getAllCategory = asyncHandler(async (req, res) => {
 });
 
 const createCategory = asyncHandler(async (req, res) => {
-  const data = req.body;
+  const { name } = req.body;
+
+  const coverImg = await uploadOnCloudinary(req.file?.path as string);
+
+  if (!coverImg) {
+    throw new customeError(httpStatus.NOT_ACCEPTABLE, 'Failed to upload image');
+  }
+
+  console.log(coverImg);
+
+  const data = {
+    name: name as string,
+    coverImg: coverImg as string,
+  };
+  console.log(data);
 
   const result = await CategoryService.createCategory(data);
   customeResponse(

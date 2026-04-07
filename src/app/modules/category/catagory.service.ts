@@ -7,8 +7,11 @@ import customeError from '../../error/customeError';
 const getAllCategory = async () => {
   return await prisma.categories.findMany();
 };
-
-const createCategory = async (data: categories) => {
+type data = {
+  name: string;
+  coverImg: string;
+};
+const createCategory = async (data: data) => {
   const isCategoryExist = await prisma.categories.findFirst({
     where: {
       name: data.name,
