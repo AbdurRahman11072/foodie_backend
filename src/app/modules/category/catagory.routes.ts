@@ -5,11 +5,7 @@ import { CategoryController } from './catagory.controller';
 
 const router: Router = Router();
 
-router.get(
-  '/',
-
-  CategoryController.getAllCategory
-);
+router.get('/', CategoryController.getAllCategory);
 router.post(
   '/',
   authMiddleware([userRole.admin]),

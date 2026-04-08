@@ -24,6 +24,17 @@ const createCategory = async (data: categories) => {
 };
 
 const updateCategoryInfo = async (id: string, data: Partial<categories>) => {
+  const isCategoyNameExist = await prisma.categories.findFirst({
+    where: {
+      name: data.name as string,
+    },
+  });
+  if (isCategoyNameExist) {
+    throw new customeError(
+      httpStatus.BAD_REQUEST,
+      `Category name already exist. Please choose a different name.`
+    );
+  }
   const isCategoryExist = await prisma.categories.findFirst({
     where: {
       id,

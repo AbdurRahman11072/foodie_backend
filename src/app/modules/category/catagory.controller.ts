@@ -19,6 +19,9 @@ const getAllCategory = asyncHandler(async (req, res) => {
 
 const createCategory = asyncHandler(async (req, res) => {
   const data = req.body;
+  console.log('Catagory route has been hit');
+
+  console.log(data);
 
   const result = await CategoryService.createCategory(data);
   customeResponse(
