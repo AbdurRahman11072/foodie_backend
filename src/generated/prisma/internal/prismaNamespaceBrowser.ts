@@ -130,6 +130,7 @@ export const RestaurantsScalarFieldEnum = {
   ownerId: 'ownerId',
   name: 'name',
   coverImg: 'coverImg',
+  avatarImg: 'avatarImg',
   description: 'description',
   openingTime: 'openingTime',
   closingTime: 'closingTime',
@@ -153,9 +154,9 @@ export const MealsScalarFieldEnum = {
   rating: 'rating',
   available: 'available',
   ingredients: 'ingredients',
-  allergens: 'allergens',
   calories: 'calories',
   servingSize: 'servingSize',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -188,7 +189,7 @@ export const UserScalarFieldEnum = {
   banned: 'banned',
   banReason: 'banReason',
   banExpires: 'banExpires',
-  hasShop: 'hasShop'
+  restaurantId: 'restaurantId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

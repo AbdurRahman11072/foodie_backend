@@ -49,6 +49,7 @@ export type MealsMinAggregateOutputType = {
   available: boolean | null
   calories: number | null
   servingSize: string | null
+  status: $Enums.MealStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,6 +65,7 @@ export type MealsMaxAggregateOutputType = {
   available: boolean | null
   calories: number | null
   servingSize: string | null
+  status: $Enums.MealStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -78,9 +80,9 @@ export type MealsCountAggregateOutputType = {
   rating: number
   available: number
   ingredients: number
-  allergens: number
   calories: number
   servingSize: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -110,6 +112,7 @@ export type MealsMinAggregateInputType = {
   available?: true
   calories?: true
   servingSize?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -125,6 +128,7 @@ export type MealsMaxAggregateInputType = {
   available?: true
   calories?: true
   servingSize?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -139,9 +143,9 @@ export type MealsCountAggregateInputType = {
   rating?: true
   available?: true
   ingredients?: true
-  allergens?: true
   calories?: true
   servingSize?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -243,9 +247,9 @@ export type MealsGroupByOutputType = {
   rating: number
   available: boolean
   ingredients: string[]
-  allergens: string[]
   calories: number
   servingSize: string
+  status: $Enums.MealStatus
   createdAt: Date
   updatedAt: Date
   _count: MealsCountAggregateOutputType | null
@@ -283,9 +287,9 @@ export type mealsWhereInput = {
   rating?: Prisma.FloatFilter<"meals"> | number
   available?: Prisma.BoolFilter<"meals"> | boolean
   ingredients?: Prisma.StringNullableListFilter<"meals">
-  allergens?: Prisma.StringNullableListFilter<"meals">
   calories?: Prisma.IntFilter<"meals"> | number
   servingSize?: Prisma.StringFilter<"meals"> | string
+  status?: Prisma.EnumMealStatusFilter<"meals"> | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   category?: Prisma.CategoriesListRelationFilter
@@ -303,9 +307,9 @@ export type mealsOrderByWithRelationInput = {
   rating?: Prisma.SortOrder
   available?: Prisma.SortOrder
   ingredients?: Prisma.SortOrder
-  allergens?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   servingSize?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   category?: Prisma.categoriesOrderByRelationAggregateInput
@@ -326,9 +330,9 @@ export type mealsWhereUniqueInput = Prisma.AtLeast<{
   rating?: Prisma.FloatFilter<"meals"> | number
   available?: Prisma.BoolFilter<"meals"> | boolean
   ingredients?: Prisma.StringNullableListFilter<"meals">
-  allergens?: Prisma.StringNullableListFilter<"meals">
   calories?: Prisma.IntFilter<"meals"> | number
   servingSize?: Prisma.StringFilter<"meals"> | string
+  status?: Prisma.EnumMealStatusFilter<"meals"> | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   category?: Prisma.CategoriesListRelationFilter
@@ -346,9 +350,9 @@ export type mealsOrderByWithAggregationInput = {
   rating?: Prisma.SortOrder
   available?: Prisma.SortOrder
   ingredients?: Prisma.SortOrder
-  allergens?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   servingSize?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.mealsCountOrderByAggregateInput
@@ -371,9 +375,9 @@ export type mealsScalarWhereWithAggregatesInput = {
   rating?: Prisma.FloatWithAggregatesFilter<"meals"> | number
   available?: Prisma.BoolWithAggregatesFilter<"meals"> | boolean
   ingredients?: Prisma.StringNullableListFilter<"meals">
-  allergens?: Prisma.StringNullableListFilter<"meals">
   calories?: Prisma.IntWithAggregatesFilter<"meals"> | number
   servingSize?: Prisma.StringWithAggregatesFilter<"meals"> | string
+  status?: Prisma.EnumMealStatusWithAggregatesFilter<"meals"> | $Enums.MealStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"meals"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"meals"> | Date | string
 }
@@ -387,9 +391,9 @@ export type mealsCreateInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.categoriesCreateNestedManyWithoutMealsInput
@@ -407,9 +411,9 @@ export type mealsUncheckedCreateInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
@@ -425,9 +429,9 @@ export type mealsUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
@@ -445,9 +449,9 @@ export type mealsUncheckedUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
@@ -464,9 +468,9 @@ export type mealsCreateManyInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -480,9 +484,9 @@ export type mealsUpdateManyMutationInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -497,9 +501,9 @@ export type mealsUncheckedUpdateManyInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -537,9 +541,9 @@ export type mealsCountOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   available?: Prisma.SortOrder
   ingredients?: Prisma.SortOrder
-  allergens?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   servingSize?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -561,6 +565,7 @@ export type mealsMaxOrderByAggregateInput = {
   available?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   servingSize?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -576,6 +581,7 @@ export type mealsMinOrderByAggregateInput = {
   available?: Prisma.SortOrder
   calories?: Prisma.SortOrder
   servingSize?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -684,18 +690,13 @@ export type mealsCreateingredientsInput = {
   set: string[]
 }
 
-export type mealsCreateallergensInput = {
-  set: string[]
-}
-
 export type mealsUpdateingredientsInput = {
   set?: string[]
   push?: string | string[]
 }
 
-export type mealsUpdateallergensInput = {
-  set?: string[]
-  push?: string | string[]
+export type EnumMealStatusFieldUpdateOperationsInput = {
+  set?: $Enums.MealStatus
 }
 
 export type mealsCreateWithoutCategoryInput = {
@@ -707,9 +708,9 @@ export type mealsCreateWithoutCategoryInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItem?: Prisma.orderItemsCreateNestedManyWithoutMealInput
@@ -726,9 +727,9 @@ export type mealsUncheckedCreateWithoutCategoryInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItem?: Prisma.orderItemsUncheckedCreateNestedManyWithoutMealInput
@@ -768,9 +769,9 @@ export type mealsScalarWhereInput = {
   rating?: Prisma.FloatFilter<"meals"> | number
   available?: Prisma.BoolFilter<"meals"> | boolean
   ingredients?: Prisma.StringNullableListFilter<"meals">
-  allergens?: Prisma.StringNullableListFilter<"meals">
   calories?: Prisma.IntFilter<"meals"> | number
   servingSize?: Prisma.StringFilter<"meals"> | string
+  status?: Prisma.EnumMealStatusFilter<"meals"> | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"meals"> | Date | string
 }
@@ -784,9 +785,9 @@ export type mealsCreateWithoutOrderItemInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.categoriesCreateNestedManyWithoutMealsInput
@@ -803,9 +804,9 @@ export type mealsUncheckedCreateWithoutOrderItemInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
@@ -836,9 +837,9 @@ export type mealsUpdateWithoutOrderItemInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
@@ -855,9 +856,9 @@ export type mealsUncheckedUpdateWithoutOrderItemInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
@@ -872,9 +873,9 @@ export type mealsCreateWithoutRestaurantInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.categoriesCreateNestedManyWithoutMealsInput
@@ -890,9 +891,9 @@ export type mealsUncheckedCreateWithoutRestaurantInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
@@ -934,9 +935,9 @@ export type mealsUpdateWithoutCategoryInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItem?: Prisma.orderItemsUpdateManyWithoutMealNestedInput
@@ -953,9 +954,9 @@ export type mealsUncheckedUpdateWithoutCategoryInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItem?: Prisma.orderItemsUncheckedUpdateManyWithoutMealNestedInput
@@ -971,9 +972,9 @@ export type mealsUncheckedUpdateManyWithoutCategoryInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -987,9 +988,9 @@ export type mealsCreateManyRestaurantInput = {
   rating?: number
   available: boolean
   ingredients?: Prisma.mealsCreateingredientsInput | string[]
-  allergens?: Prisma.mealsCreateallergensInput | string[]
   calories: number
   servingSize: string
+  status?: $Enums.MealStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1003,9 +1004,9 @@ export type mealsUpdateWithoutRestaurantInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
@@ -1021,9 +1022,9 @@ export type mealsUncheckedUpdateWithoutRestaurantInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
@@ -1039,9 +1040,9 @@ export type mealsUncheckedUpdateManyWithoutRestaurantInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   available?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ingredients?: Prisma.mealsUpdateingredientsInput | string[]
-  allergens?: Prisma.mealsUpdateallergensInput | string[]
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1096,9 +1097,9 @@ export type mealsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   rating?: boolean
   available?: boolean
   ingredients?: boolean
-  allergens?: boolean
   calories?: boolean
   servingSize?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.meals$categoryArgs<ExtArgs>
@@ -1117,9 +1118,9 @@ export type mealsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   rating?: boolean
   available?: boolean
   ingredients?: boolean
-  allergens?: boolean
   calories?: boolean
   servingSize?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
@@ -1135,9 +1136,9 @@ export type mealsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   rating?: boolean
   available?: boolean
   ingredients?: boolean
-  allergens?: boolean
   calories?: boolean
   servingSize?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
@@ -1153,14 +1154,14 @@ export type mealsSelectScalar = {
   rating?: boolean
   available?: boolean
   ingredients?: boolean
-  allergens?: boolean
   calories?: boolean
   servingSize?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type mealsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "restaurantId" | "name" | "coverImg" | "description" | "price" | "rating" | "available" | "ingredients" | "allergens" | "calories" | "servingSize" | "createdAt" | "updatedAt", ExtArgs["result"]["meals"]>
+export type mealsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "restaurantId" | "name" | "coverImg" | "description" | "price" | "rating" | "available" | "ingredients" | "calories" | "servingSize" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["meals"]>
 export type mealsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.meals$categoryArgs<ExtArgs>
   orderItem?: boolean | Prisma.meals$orderItemArgs<ExtArgs>
@@ -1191,9 +1192,9 @@ export type $mealsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     rating: number
     available: boolean
     ingredients: string[]
-    allergens: string[]
     calories: number
     servingSize: string
+    status: $Enums.MealStatus
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["meals"]>
@@ -1631,9 +1632,9 @@ export interface mealsFieldRefs {
   readonly rating: Prisma.FieldRef<"meals", 'Float'>
   readonly available: Prisma.FieldRef<"meals", 'Boolean'>
   readonly ingredients: Prisma.FieldRef<"meals", 'String[]'>
-  readonly allergens: Prisma.FieldRef<"meals", 'String[]'>
   readonly calories: Prisma.FieldRef<"meals", 'Int'>
   readonly servingSize: Prisma.FieldRef<"meals", 'String'>
+  readonly status: Prisma.FieldRef<"meals", 'MealStatus'>
   readonly createdAt: Prisma.FieldRef<"meals", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"meals", 'DateTime'>
 }

@@ -39,6 +39,7 @@ export type RestaurantsMinAggregateOutputType = {
   ownerId: string | null
   name: string | null
   coverImg: string | null
+  avatarImg: string | null
   description: string | null
   openingTime: string | null
   closingTime: string | null
@@ -54,6 +55,7 @@ export type RestaurantsMaxAggregateOutputType = {
   ownerId: string | null
   name: string | null
   coverImg: string | null
+  avatarImg: string | null
   description: string | null
   openingTime: string | null
   closingTime: string | null
@@ -69,6 +71,7 @@ export type RestaurantsCountAggregateOutputType = {
   ownerId: number
   name: number
   coverImg: number
+  avatarImg: number
   description: number
   openingTime: number
   closingTime: number
@@ -94,6 +97,7 @@ export type RestaurantsMinAggregateInputType = {
   ownerId?: true
   name?: true
   coverImg?: true
+  avatarImg?: true
   description?: true
   openingTime?: true
   closingTime?: true
@@ -109,6 +113,7 @@ export type RestaurantsMaxAggregateInputType = {
   ownerId?: true
   name?: true
   coverImg?: true
+  avatarImg?: true
   description?: true
   openingTime?: true
   closingTime?: true
@@ -124,6 +129,7 @@ export type RestaurantsCountAggregateInputType = {
   ownerId?: true
   name?: true
   coverImg?: true
+  avatarImg?: true
   description?: true
   openingTime?: true
   closingTime?: true
@@ -226,6 +232,7 @@ export type RestaurantsGroupByOutputType = {
   ownerId: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -264,6 +271,7 @@ export type restaurantsWhereInput = {
   ownerId?: Prisma.StringFilter<"restaurants"> | string
   name?: Prisma.StringFilter<"restaurants"> | string
   coverImg?: Prisma.StringFilter<"restaurants"> | string
+  avatarImg?: Prisma.StringFilter<"restaurants"> | string
   description?: Prisma.StringFilter<"restaurants"> | string
   openingTime?: Prisma.StringFilter<"restaurants"> | string
   closingTime?: Prisma.StringFilter<"restaurants"> | string
@@ -282,6 +290,7 @@ export type restaurantsOrderByWithRelationInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   coverImg?: Prisma.SortOrder
+  avatarImg?: Prisma.SortOrder
   description?: Prisma.SortOrder
   openingTime?: Prisma.SortOrder
   closingTime?: Prisma.SortOrder
@@ -303,6 +312,7 @@ export type restaurantsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.restaurantsWhereInput | Prisma.restaurantsWhereInput[]
   name?: Prisma.StringFilter<"restaurants"> | string
   coverImg?: Prisma.StringFilter<"restaurants"> | string
+  avatarImg?: Prisma.StringFilter<"restaurants"> | string
   description?: Prisma.StringFilter<"restaurants"> | string
   openingTime?: Prisma.StringFilter<"restaurants"> | string
   closingTime?: Prisma.StringFilter<"restaurants"> | string
@@ -321,6 +331,7 @@ export type restaurantsOrderByWithAggregationInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   coverImg?: Prisma.SortOrder
+  avatarImg?: Prisma.SortOrder
   description?: Prisma.SortOrder
   openingTime?: Prisma.SortOrder
   closingTime?: Prisma.SortOrder
@@ -344,6 +355,7 @@ export type restaurantsScalarWhereWithAggregatesInput = {
   ownerId?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
   name?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
   coverImg?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
+  avatarImg?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
   description?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
   openingTime?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
   closingTime?: Prisma.StringWithAggregatesFilter<"restaurants"> | string
@@ -358,6 +370,7 @@ export type restaurantsCreateInput = {
   id?: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -376,6 +389,7 @@ export type restaurantsUncheckedCreateInput = {
   ownerId: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -392,6 +406,7 @@ export type restaurantsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -410,6 +425,7 @@ export type restaurantsUncheckedUpdateInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -427,6 +443,7 @@ export type restaurantsCreateManyInput = {
   ownerId: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -441,6 +458,7 @@ export type restaurantsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -456,6 +474,7 @@ export type restaurantsUncheckedUpdateManyInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -476,6 +495,7 @@ export type restaurantsCountOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   coverImg?: Prisma.SortOrder
+  avatarImg?: Prisma.SortOrder
   description?: Prisma.SortOrder
   openingTime?: Prisma.SortOrder
   closingTime?: Prisma.SortOrder
@@ -495,6 +515,7 @@ export type restaurantsMaxOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   coverImg?: Prisma.SortOrder
+  avatarImg?: Prisma.SortOrder
   description?: Prisma.SortOrder
   openingTime?: Prisma.SortOrder
   closingTime?: Prisma.SortOrder
@@ -510,6 +531,7 @@ export type restaurantsMinOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   coverImg?: Prisma.SortOrder
+  avatarImg?: Prisma.SortOrder
   description?: Prisma.SortOrder
   openingTime?: Prisma.SortOrder
   closingTime?: Prisma.SortOrder
@@ -597,6 +619,7 @@ export type restaurantsCreateWithoutOrderItemInput = {
   id?: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -614,6 +637,7 @@ export type restaurantsUncheckedCreateWithoutOrderItemInput = {
   ownerId: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -645,6 +669,7 @@ export type restaurantsUpdateWithoutOrderItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -662,6 +687,7 @@ export type restaurantsUncheckedUpdateWithoutOrderItemInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -677,6 +703,7 @@ export type restaurantsCreateWithoutMealsInput = {
   id?: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -694,6 +721,7 @@ export type restaurantsUncheckedCreateWithoutMealsInput = {
   ownerId: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -725,6 +753,7 @@ export type restaurantsUpdateWithoutMealsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -742,6 +771,7 @@ export type restaurantsUncheckedUpdateWithoutMealsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -757,6 +787,7 @@ export type restaurantsCreateWithoutUserInput = {
   id?: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -773,6 +804,7 @@ export type restaurantsUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   coverImg: string
+  avatarImg: string
   description: string
   openingTime: string
   closingTime: string
@@ -805,6 +837,7 @@ export type restaurantsUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -821,6 +854,7 @@ export type restaurantsUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarImg?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   openingTime?: Prisma.StringFieldUpdateOperationsInput | string
   closingTime?: Prisma.StringFieldUpdateOperationsInput | string
@@ -878,6 +912,7 @@ export type restaurantsSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   ownerId?: boolean
   name?: boolean
   coverImg?: boolean
+  avatarImg?: boolean
   description?: boolean
   openingTime?: boolean
   closingTime?: boolean
@@ -897,6 +932,7 @@ export type restaurantsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   ownerId?: boolean
   name?: boolean
   coverImg?: boolean
+  avatarImg?: boolean
   description?: boolean
   openingTime?: boolean
   closingTime?: boolean
@@ -913,6 +949,7 @@ export type restaurantsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   ownerId?: boolean
   name?: boolean
   coverImg?: boolean
+  avatarImg?: boolean
   description?: boolean
   openingTime?: boolean
   closingTime?: boolean
@@ -929,6 +966,7 @@ export type restaurantsSelectScalar = {
   ownerId?: boolean
   name?: boolean
   coverImg?: boolean
+  avatarImg?: boolean
   description?: boolean
   openingTime?: boolean
   closingTime?: boolean
@@ -939,7 +977,7 @@ export type restaurantsSelectScalar = {
   updatedAt?: boolean
 }
 
-export type restaurantsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "coverImg" | "description" | "openingTime" | "closingTime" | "offday" | "rating" | "banned" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurants"]>
+export type restaurantsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "name" | "coverImg" | "avatarImg" | "description" | "openingTime" | "closingTime" | "offday" | "rating" | "banned" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurants"]>
 export type restaurantsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   meals?: boolean | Prisma.restaurants$mealsArgs<ExtArgs>
   orderItem?: boolean | Prisma.restaurants$orderItemArgs<ExtArgs>
@@ -965,6 +1003,7 @@ export type $restaurantsPayload<ExtArgs extends runtime.Types.Extensions.Interna
     ownerId: string
     name: string
     coverImg: string
+    avatarImg: string
     description: string
     openingTime: string
     closingTime: string
@@ -1403,6 +1442,7 @@ export interface restaurantsFieldRefs {
   readonly ownerId: Prisma.FieldRef<"restaurants", 'String'>
   readonly name: Prisma.FieldRef<"restaurants", 'String'>
   readonly coverImg: Prisma.FieldRef<"restaurants", 'String'>
+  readonly avatarImg: Prisma.FieldRef<"restaurants", 'String'>
   readonly description: Prisma.FieldRef<"restaurants", 'String'>
   readonly openingTime: Prisma.FieldRef<"restaurants", 'String'>
   readonly closingTime: Prisma.FieldRef<"restaurants", 'String'>

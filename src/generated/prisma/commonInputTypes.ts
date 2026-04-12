@@ -173,6 +173,23 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
+export type EnumMealStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MealStatus | Prisma.EnumMealStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMealStatusFilter<$PrismaModel> | $Enums.MealStatus
+}
+
+export type EnumMealStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MealStatus | Prisma.EnumMealStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMealStatusWithAggregatesFilter<$PrismaModel> | $Enums.MealStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMealStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMealStatusFilter<$PrismaModel>
+}
+
 export type StringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -404,6 +421,23 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumMealStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.MealStatus | Prisma.EnumMealStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMealStatusFilter<$PrismaModel> | $Enums.MealStatus
+}
+
+export type NestedEnumMealStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MealStatus | Prisma.EnumMealStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MealStatus[] | Prisma.ListEnumMealStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMealStatusWithAggregatesFilter<$PrismaModel> | $Enums.MealStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMealStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMealStatusFilter<$PrismaModel>
 }
 
 export type NestedStringNullableFilter<$PrismaModel = never> = {

@@ -3,13 +3,14 @@ model restaurants {
   ownerId     String @unique
   name        String
   coverImg    String
+  avatarImg   String
   description String
   openingTime String
   closingTime String
   offday      String
   rating      Float @default(0)
   banned      Boolean @default(false)
-  createdAt   DateTime @default(now())
+  createdAt   DateTime @default(now()) 
   updatedAt   DateTime @updatedAt
 
   meals       meals[]
@@ -23,6 +24,10 @@ model restaurants {
   @@index([banned])
 }
 
+enum MealStatus {
+  DRFT
+  PUBLISHED
+}
 
 model meals {
   id            String     @id @default(uuid())
@@ -35,9 +40,9 @@ model meals {
   category      categories[]
   available     Boolean
   ingredients   String[]
-  allergens     String[]
   calories      Int
   servingSize   String
+  status        MealStatus @default(DRFT)
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 

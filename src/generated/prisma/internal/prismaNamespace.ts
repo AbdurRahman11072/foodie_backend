@@ -1243,6 +1243,7 @@ export const RestaurantsScalarFieldEnum = {
   ownerId: 'ownerId',
   name: 'name',
   coverImg: 'coverImg',
+  avatarImg: 'avatarImg',
   description: 'description',
   openingTime: 'openingTime',
   closingTime: 'closingTime',
@@ -1266,9 +1267,9 @@ export const MealsScalarFieldEnum = {
   rating: 'rating',
   available: 'available',
   ingredients: 'ingredients',
-  allergens: 'allergens',
   calories: 'calories',
   servingSize: 'servingSize',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1301,7 +1302,7 @@ export const UserScalarFieldEnum = {
   banned: 'banned',
   banReason: 'banReason',
   banExpires: 'banExpires',
-  hasShop: 'hasShop'
+  restaurantId: 'restaurantId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1471,6 +1472,20 @@ export type ListEnumOrderItemStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'MealStatus'
+ */
+export type EnumMealStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MealStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MealStatus[]'
+ */
+export type ListEnumMealStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MealStatus[]'>
     
 
 /**

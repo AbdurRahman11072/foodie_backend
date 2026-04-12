@@ -25,7 +25,7 @@ model User {
   banned        Boolean?  @default(false)
   banReason     String?
   banExpires    DateTime?
-  hasShop       Boolean   @default(false)
+  restaurantId  String?
   sessions      Session[]
   accounts      Account[]
   restaurant   restaurants?

@@ -36,7 +36,7 @@ export type UserMinAggregateOutputType = {
   banned: boolean | null
   banReason: string | null
   banExpires: Date | null
-  hasShop: boolean | null
+  restaurantId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -51,7 +51,7 @@ export type UserMaxAggregateOutputType = {
   banned: boolean | null
   banReason: string | null
   banExpires: Date | null
-  hasShop: boolean | null
+  restaurantId: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -66,7 +66,7 @@ export type UserCountAggregateOutputType = {
   banned: number
   banReason: number
   banExpires: number
-  hasShop: number
+  restaurantId: number
   _all: number
 }
 
@@ -83,7 +83,7 @@ export type UserMinAggregateInputType = {
   banned?: true
   banReason?: true
   banExpires?: true
-  hasShop?: true
+  restaurantId?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -98,7 +98,7 @@ export type UserMaxAggregateInputType = {
   banned?: true
   banReason?: true
   banExpires?: true
-  hasShop?: true
+  restaurantId?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -113,7 +113,7 @@ export type UserCountAggregateInputType = {
   banned?: true
   banReason?: true
   banExpires?: true
-  hasShop?: true
+  restaurantId?: true
   _all?: true
 }
 
@@ -201,7 +201,7 @@ export type UserGroupByOutputType = {
   banned: boolean | null
   banReason: string | null
   banExpires: Date | null
-  hasShop: boolean
+  restaurantId: string | null
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -237,7 +237,7 @@ export type UserWhereInput = {
   banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
   banReason?: Prisma.StringNullableFilter<"User"> | string | null
   banExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  hasShop?: Prisma.BoolFilter<"User"> | boolean
+  restaurantId?: Prisma.StringNullableFilter<"User"> | string | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   restaurant?: Prisma.XOR<Prisma.RestaurantsNullableScalarRelationFilter, Prisma.restaurantsWhereInput> | null
@@ -257,7 +257,7 @@ export type UserOrderByWithRelationInput = {
   banned?: Prisma.SortOrderInput | Prisma.SortOrder
   banReason?: Prisma.SortOrderInput | Prisma.SortOrder
   banExpires?: Prisma.SortOrderInput | Prisma.SortOrder
-  hasShop?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrderInput | Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   restaurant?: Prisma.restaurantsOrderByWithRelationInput
@@ -280,7 +280,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
   banReason?: Prisma.StringNullableFilter<"User"> | string | null
   banExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  hasShop?: Prisma.BoolFilter<"User"> | boolean
+  restaurantId?: Prisma.StringNullableFilter<"User"> | string | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
   restaurant?: Prisma.XOR<Prisma.RestaurantsNullableScalarRelationFilter, Prisma.restaurantsWhereInput> | null
@@ -300,7 +300,7 @@ export type UserOrderByWithAggregationInput = {
   banned?: Prisma.SortOrderInput | Prisma.SortOrder
   banReason?: Prisma.SortOrderInput | Prisma.SortOrder
   banExpires?: Prisma.SortOrderInput | Prisma.SortOrder
-  hasShop?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -321,7 +321,7 @@ export type UserScalarWhereWithAggregatesInput = {
   banned?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
   banReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   banExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  hasShop?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  restaurantId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -336,7 +336,7 @@ export type UserCreateInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsCreateNestedOneWithoutUserInput
@@ -356,7 +356,7 @@ export type UserUncheckedCreateInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsUncheckedCreateNestedOneWithoutUserInput
@@ -376,7 +376,7 @@ export type UserUpdateInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUpdateOneWithoutUserNestedInput
@@ -396,7 +396,7 @@ export type UserUncheckedUpdateInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUncheckedUpdateOneWithoutUserNestedInput
@@ -416,7 +416,7 @@ export type UserCreateManyInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -431,7 +431,7 @@ export type UserUpdateManyMutationInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -446,7 +446,7 @@ export type UserUncheckedUpdateManyInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserScalarRelationFilter = {
@@ -466,7 +466,7 @@ export type UserCountOrderByAggregateInput = {
   banned?: Prisma.SortOrder
   banReason?: Prisma.SortOrder
   banExpires?: Prisma.SortOrder
-  hasShop?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -481,7 +481,7 @@ export type UserMaxOrderByAggregateInput = {
   banned?: Prisma.SortOrder
   banReason?: Prisma.SortOrder
   banExpires?: Prisma.SortOrder
-  hasShop?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -496,7 +496,7 @@ export type UserMinOrderByAggregateInput = {
   banned?: Prisma.SortOrder
   banReason?: Prisma.SortOrder
   banExpires?: Prisma.SortOrder
-  hasShop?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
 }
 
 export type UserCreateNestedOneWithoutOrdersInput = {
@@ -593,7 +593,7 @@ export type UserCreateWithoutOrdersInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsCreateNestedOneWithoutUserInput
@@ -612,7 +612,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsUncheckedCreateNestedOneWithoutUserInput
@@ -647,7 +647,7 @@ export type UserUpdateWithoutOrdersInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUpdateOneWithoutUserNestedInput
@@ -666,7 +666,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUncheckedUpdateOneWithoutUserNestedInput
@@ -685,7 +685,7 @@ export type UserCreateWithoutRestaurantInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   orders?: Prisma.ordersCreateNestedManyWithoutUserInput
@@ -704,7 +704,7 @@ export type UserUncheckedCreateWithoutRestaurantInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
@@ -739,7 +739,7 @@ export type UserUpdateWithoutRestaurantInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
@@ -758,7 +758,7 @@ export type UserUncheckedUpdateWithoutRestaurantInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
@@ -777,7 +777,7 @@ export type UserCreateWithoutReviewsInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsCreateNestedOneWithoutUserInput
@@ -796,7 +796,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsUncheckedCreateNestedOneWithoutUserInput
@@ -831,7 +831,7 @@ export type UserUpdateWithoutReviewsInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUpdateOneWithoutUserNestedInput
@@ -850,7 +850,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUncheckedUpdateOneWithoutUserNestedInput
@@ -869,7 +869,7 @@ export type UserCreateWithoutSessionsInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsCreateNestedOneWithoutUserInput
   orders?: Prisma.ordersCreateNestedManyWithoutUserInput
@@ -888,7 +888,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsUncheckedCreateNestedOneWithoutUserInput
   orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
@@ -923,7 +923,7 @@ export type UserUpdateWithoutSessionsInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUpdateOneWithoutUserNestedInput
   orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
@@ -942,7 +942,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUncheckedUpdateOneWithoutUserNestedInput
   orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
@@ -961,7 +961,7 @@ export type UserCreateWithoutAccountsInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsCreateNestedOneWithoutUserInput
   orders?: Prisma.ordersCreateNestedManyWithoutUserInput
@@ -980,7 +980,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   banned?: boolean | null
   banReason?: string | null
   banExpires?: Date | string | null
-  hasShop?: boolean
+  restaurantId?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   restaurant?: Prisma.restaurantsUncheckedCreateNestedOneWithoutUserInput
   orders?: Prisma.ordersUncheckedCreateNestedManyWithoutUserInput
@@ -1015,7 +1015,7 @@ export type UserUpdateWithoutAccountsInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUpdateOneWithoutUserNestedInput
   orders?: Prisma.ordersUpdateManyWithoutUserNestedInput
@@ -1034,7 +1034,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  hasShop?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  restaurantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   restaurant?: Prisma.restaurantsUncheckedUpdateOneWithoutUserNestedInput
   orders?: Prisma.ordersUncheckedUpdateManyWithoutUserNestedInput
@@ -1111,7 +1111,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  hasShop?: boolean
+  restaurantId?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   restaurant?: boolean | Prisma.User$restaurantArgs<ExtArgs>
@@ -1132,7 +1132,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  hasShop?: boolean
+  restaurantId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1147,7 +1147,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  hasShop?: boolean
+  restaurantId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1162,10 +1162,10 @@ export type UserSelectScalar = {
   banned?: boolean
   banReason?: boolean
   banExpires?: boolean
-  hasShop?: boolean
+  restaurantId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "banned" | "banReason" | "banExpires" | "hasShop", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "banned" | "banReason" | "banExpires" | "restaurantId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -1198,7 +1198,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     banned: boolean | null
     banReason: string | null
     banExpires: Date | null
-    hasShop: boolean
+    restaurantId: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1638,7 +1638,7 @@ export interface UserFieldRefs {
   readonly banned: Prisma.FieldRef<"User", 'Boolean'>
   readonly banReason: Prisma.FieldRef<"User", 'String'>
   readonly banExpires: Prisma.FieldRef<"User", 'DateTime'>
-  readonly hasShop: Prisma.FieldRef<"User", 'Boolean'>
+  readonly restaurantId: Prisma.FieldRef<"User", 'String'>
 }
     
 

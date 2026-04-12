@@ -34,6 +34,7 @@ const createRestaurant = async (data: restaurants) => {
     where: { id: data.ownerId },
     data: {
       role: userRole.provider,
+      restaurantId: restaurantCreated.id,
     },
   });
 

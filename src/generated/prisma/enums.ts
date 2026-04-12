@@ -27,6 +27,14 @@ export const OrderItemStatus = {
 export type OrderItemStatus = (typeof OrderItemStatus)[keyof typeof OrderItemStatus]
 
 
+export const MealStatus = {
+  DRFT: 'DRFT',
+  PUBLISHED: 'PUBLISHED'
+} as const
+
+export type MealStatus = (typeof MealStatus)[keyof typeof MealStatus]
+
+
 export const Roles = {
   USER: 'USER',
   PROVIDER: 'PROVIDER',
