@@ -9,6 +9,7 @@
     "build": "prisma generate && tsc && node scripts/fix-imports.js",
     "mg": "npx prisma migrate dev",
     "ge": " npx prisma generate",
+    "bt": "pnpm dlx auth@latest generate",
     "seed": "tsx src/app/script/seedAdmin.ts",
     "start": "node dist/server.js"
   },

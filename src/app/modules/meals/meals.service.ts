@@ -1,13 +1,22 @@
 import httpStatus from 'http-status';
-import { meals } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
+import { MealData } from '../../types/mealData';
 
 const getAllMeals = async () => {
-  return await prisma.meals.findMany();
+  return await prisma.meals.findMany({
+    include: {
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
 };
 
-const createMeals = async (id: string, data: meals) => {
+const createMeals = async (id: string, mealData: MealData) => {
   const isValidUser = await prisma.user.findFirst({
     where: { id },
     select: {
@@ -22,7 +31,7 @@ const createMeals = async (id: string, data: meals) => {
     );
   }
 
-  if (isValidUser?.restaurant.id !== data.restaurantId) {
+  if (isValidUser?.restaurant.id !== mealData.restaurantId) {
     throw new customeError(
       httpStatus.NOT_FOUND,
       `Only restaurant owner can add meals`
@@ -30,7 +39,24 @@ const createMeals = async (id: string, data: meals) => {
   }
 
   return await prisma.meals.create({
-    data: data,
+    data: {
+      name: mealData?.name,
+      restaurantId: mealData.restaurantId,
+      coverImg: mealData.coverImg,
+      description: mealData.description,
+      price: mealData.price,
+      rating: mealData.rating || 0,
+      available: mealData.available,
+      ingredients: mealData.ingredients,
+      calories: mealData.calories,
+      servingSize: mealData.servingSize,
+      status: 'PUBLISHED',
+      categories: {
+        connect: mealData?.categories?.map((categoryId: string) => ({
+          id: categoryId,
+        })),
+      },
+    },
   });
 };
 
@@ -67,37 +93,53 @@ const getMealsByRestaurantId = async (id: string) => {
 };
 
 const updateMealsInfo = async (
-  userId: string,
+  restaurantId: string,
   id: string,
-  data: Partial<meals>
+  data: Partial<MealData>
 ) => {
-  const restaurantId = await prisma.user.findFirst({
-    where: {
-      id: userId,
-    },
-    select: {
-      restaurant: true,
-    },
-  });
-  const ismealsOwner = await prisma.meals.findFirst({
+  // Check if the meal exists and belongs to the restaurant owner
+  const isMealOwner = await prisma.meals.findFirst({
     where: {
       id: id,
-      restaurantId: restaurantId?.restaurant?.id as string,
+      restaurantId: restaurantId as string,
     },
   });
 
-  if (ismealsOwner === null) {
+  if (isMealOwner === null) {
     throw new customeError(
       httpStatus.NOT_FOUND,
-      `Only owner can update meals details. `
+      `Only owner can update meals details.`
     );
   }
+
+  // Prepare the update data object
+  const updateData: any = {};
+
+  // Only include fields that are provided
+  if (data.name !== undefined) updateData.name = data.name;
+  if (data.coverImg !== undefined) updateData.coverImg = data.coverImg;
+  if (data.description !== undefined) updateData.description = data.description;
+  if (data.price !== undefined) updateData.price = data.price;
+  if (data.available !== undefined) updateData.available = data.available;
+  if (data.ingredients !== undefined) updateData.ingredients = data.ingredients;
+  if (data.calories !== undefined) updateData.calories = data.calories;
+  if (data.servingSize !== undefined) updateData.servingSize = data.servingSize;
+  if (data.status !== undefined) updateData.status = data.status;
+  if (data.rating !== undefined) updateData.rating = data.rating;
+
+  console.log(data.categories);
+
+  // Handle categories - similar to createMeals but with 'set' instead of 'connect'
+  if (data.categories !== undefined) {
+    updateData.categories = data.categories;
+  }
+
   return await prisma.meals.update({
     where: {
       id: id,
-      restaurantId: restaurantId?.restaurant?.id as string,
+      restaurantId: restaurantId as string,
     },
-    data: data,
+    data: updateData,
   });
 };
 

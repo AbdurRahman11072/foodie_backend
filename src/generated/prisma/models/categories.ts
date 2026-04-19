@@ -234,7 +234,7 @@ export type categoriesCreateInput = {
   coverImg: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  meals?: Prisma.mealsCreateNestedManyWithoutCategoryInput
+  meals?: Prisma.mealsCreateNestedManyWithoutCategoriesInput
 }
 
 export type categoriesUncheckedCreateInput = {
@@ -243,7 +243,7 @@ export type categoriesUncheckedCreateInput = {
   coverImg: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  meals?: Prisma.mealsUncheckedCreateNestedManyWithoutCategoryInput
+  meals?: Prisma.mealsUncheckedCreateNestedManyWithoutCategoriesInput
 }
 
 export type categoriesUpdateInput = {
@@ -252,7 +252,7 @@ export type categoriesUpdateInput = {
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  meals?: Prisma.mealsUpdateManyWithoutCategoryNestedInput
+  meals?: Prisma.mealsUpdateManyWithoutCategoriesNestedInput
 }
 
 export type categoriesUncheckedUpdateInput = {
@@ -261,7 +261,7 @@ export type categoriesUncheckedUpdateInput = {
   coverImg?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  meals?: Prisma.mealsUncheckedUpdateManyWithoutCategoryNestedInput
+  meals?: Prisma.mealsUncheckedUpdateManyWithoutCategoriesNestedInput
 }
 
 export type categoriesCreateManyInput = {

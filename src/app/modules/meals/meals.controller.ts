@@ -59,12 +59,12 @@ const getMealsByRestaurantId = asyncHandler(async (req, res) => {
 });
 
 const updateMealsInfo = asyncHandler(async (req, res) => {
-  const userId = req.user?.id;
+  const restaurantId = req.user?.restaurantId;
   const data = req.body;
   const { id } = req.params;
 
   const result = await mealsServices.updateMealsInfo(
-    userId as string,
+    restaurantId as string,
     id as string,
     data
   );

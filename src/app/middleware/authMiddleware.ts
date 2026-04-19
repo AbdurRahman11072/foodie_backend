@@ -24,6 +24,7 @@ const authMiddleware = (role: string[]) => {
         name: session?.user?.name as string,
         email: session?.user?.email as string,
         role: session?.user?.role as 'user' | 'provider' | 'admin',
+        restaurantId: session.user.restaurantId as string,
         banned: session?.user?.banned as boolean,
       };
 

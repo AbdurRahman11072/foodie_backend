@@ -12,8 +12,8 @@ export const auth = betterAuth({
   }),
   user: {
     additionalFields: {
-      hasShop: {
-        type: 'boolean',
+      restaurantId: {
+        type: 'string',
       },
     },
   },

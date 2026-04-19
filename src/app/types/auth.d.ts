@@ -3,6 +3,7 @@ export type AuthType = {
   email: string;
   name: string;
   role: 'user' | 'provider' | 'admin';
+  restaurantId: string;
   banned: boolean;
 };
 
