@@ -1,10 +1,68 @@
 import httpStatus from 'http-status';
+import { mealsWhereInput } from '../../../generated/prisma/models';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
 import { MealData } from '../../types/mealData';
 
-const getAllMeals = async () => {
-  return await prisma.meals.findMany({
+const getAllMeals = async ({
+  search,
+  categoryTags,
+  price,
+  page,
+  limit,
+}: {
+  search: string | undefined;
+  categoryTags: string[] | [];
+  price: number | undefined;
+  page: number | 1;
+  limit: number | 2;
+}) => {
+  const andConditions: mealsWhereInput[] = [];
+  if (search) {
+    andConditions.push({
+      OR: [
+        {
+          name: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    });
+  }
+
+  if (categoryTags && categoryTags.length > 0) {
+    andConditions.push({
+      categories: {
+        some: {
+          name: {
+            in: categoryTags,
+            mode: 'insensitive',
+          },
+        },
+      },
+    });
+  }
+  if (price) {
+    andConditions.push({
+      price: {
+        lte: price,
+      },
+    });
+  }
+
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.meals.findMany({
+    skip: skip,
+    take: take,
+    orderBy: {
+      createdAt: 'desc',
+    },
+    where: {
+      AND: andConditions,
+    },
     include: {
       categories: {
         select: {
@@ -14,6 +72,9 @@ const getAllMeals = async () => {
       },
     },
   });
+
+  const totalMeal = await prisma.meals.count();
+  return { data, totalMeal };
 };
 
 const createMeals = async (id: string, mealData: MealData) => {
@@ -63,6 +124,24 @@ const createMeals = async (id: string, mealData: MealData) => {
 const getMealsById = async (id: string) => {
   return await prisma.meals.findFirst({
     where: { id },
+    include: {
+      categories: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      restaurant: {
+        select: {
+          id: true,
+          name: true,
+          coverImg: true,
+          rating: true,
+          openingTime: true,
+          closingTime: true,
+        },
+      },
+    },
   });
 };
 

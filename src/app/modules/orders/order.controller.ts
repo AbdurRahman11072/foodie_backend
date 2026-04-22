@@ -9,6 +9,14 @@ const getAllOrders = asyncHandler(async (req, res) => {
   customeResponse(res, httpStatus.OK, true, `All orders data`, result);
 });
 
+const getOrderByUserId = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+
+  const result = await orderService.getOrderByUserId(userId as string);
+
+  customeResponse(res, httpStatus.OK, true, ` orders data found`, result);
+});
+
 const getOrderById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -19,7 +27,9 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 const createOrder = asyncHandler(async (req, res) => {
   const data = req.body;
+
   const result = await orderService.createOrder(data);
+  console.log(result);
 
   customeResponse(res, httpStatus.CREATED, true, `All orders data`, result);
 });
@@ -37,5 +47,6 @@ export const orderController = {
   getAllOrders,
   createOrder,
   updateOrder,
+  getOrderByUserId,
   getOrderById,
 };

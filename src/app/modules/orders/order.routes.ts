@@ -1,11 +1,14 @@
 import { Router } from 'express';
+import userRole from '../../constant';
+import authMiddleware from '../../middleware/authMiddleware';
 import { orderController } from './order.controller';
 
 const router: Router = Router();
 
-router.get('/', orderController.getAllOrders);
-router.get('/', orderController.getOrderById);
-router.post('/', orderController.updateOrder);
+router.get('/', authMiddleware([userRole.admin]), orderController.getAllOrders);
+router.get('/order-id/:id', orderController.getOrderById);
+router.get('/:userId', orderController.getOrderByUserId);
+router.post('/', orderController.createOrder);
 router.put('/:id', orderController.updateOrder);
 
 export const ordersRoutes = router;

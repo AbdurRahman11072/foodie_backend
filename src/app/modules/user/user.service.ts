@@ -1,7 +1,15 @@
 import { prisma } from '../../../lib/prisma';
 
 const getAllUser = async () => {
-  return await prisma.user.findMany();
+  return await prisma.user.findMany({
+    include: {
+      restaurant: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 };
 
 const updateUser = async (id: string, data: any) => {

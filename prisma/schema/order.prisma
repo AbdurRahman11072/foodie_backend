@@ -1,9 +1,12 @@
 enum OrderStatus {
+  PREPARING
   DELIVERING
   COMPLETE
+  CANCELLED
 }
 
 enum OrderItemStatus {
+  PENDING
   PREPARING
   READY
   DELIVERED
@@ -12,12 +15,12 @@ enum OrderItemStatus {
 
 model orders {
   id            String      @id @default(uuid())
-  orderId       String
+  orderId String @unique
   userId        String
   address       String
   phoneNumber   String
   totalPrice    Float
-  status        OrderStatus @default(DELIVERING)
+  status        OrderStatus @default(PREPARING)
   paymentMethod String
  
   createdAt     DateTime    @default(now())
@@ -31,7 +34,7 @@ model orders {
 
   @@index([userId])
   @@index([status])
-  @@index([orderId])
+ 
 
 }
 
@@ -46,7 +49,7 @@ model orderItems {
     quantity    Int
     price       Float
     totalPrice  Float
-    status      OrderItemStatus @default(PREPARING)
+    status      OrderItemStatus @default(PENDING)
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @updatedAt
 

@@ -277,10 +277,10 @@ export type ordersOrderByWithRelationInput = {
 
 export type ordersWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  orderId?: string
   AND?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
   OR?: Prisma.ordersWhereInput[]
   NOT?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
-  orderId?: Prisma.StringFilter<"orders"> | string
   userId?: Prisma.StringFilter<"orders"> | string
   address?: Prisma.StringFilter<"orders"> | string
   phoneNumber?: Prisma.StringFilter<"orders"> | string
@@ -291,7 +291,7 @@ export type ordersWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"orders"> | Date | string
   items?: Prisma.OrderItemsListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "orderId">
 
 export type ordersOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

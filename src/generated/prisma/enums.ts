@@ -10,6 +10,7 @@
 */
 
 export const OrderStatus = {
+  PREPARING: 'PREPARING',
   DELIVERING: 'DELIVERING',
   COMPLETE: 'COMPLETE'
 } as const
@@ -18,6 +19,7 @@ export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
 export const OrderItemStatus = {
+  PENDING: 'PENDING',
   PREPARING: 'PREPARING',
   READY: 'READY',
   DELIVERED: 'DELIVERED',

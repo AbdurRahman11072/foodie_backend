@@ -5,9 +5,27 @@ import customeResponse from '../../utils/response';
 import { mealsServices } from './meals.service';
 
 const getAllMeals = asyncHandler(async (req, res) => {
-  const result = await mealsServices.getAllMeals();
+  const search =
+    typeof req.query.search === 'string' ? req.query.search : undefined;
+  const categoryTags = req.query.category
+    ? (req.query.category as string).split(',')
+    : [];
+  const price = req.query.price
+    ? parseFloat(req.query.price as string)
+    : undefined;
 
-  if (result.length === 0) {
+  const page = req.query.page ? parseFloat(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseFloat(req.query.limit as string) : 10;
+
+  const result = await mealsServices.getAllMeals({
+    search,
+    categoryTags,
+    price,
+    page,
+    limit,
+  });
+
+  if (result.data.length === 0) {
     throw new customeError(
       httpStatus.NOT_FOUND,
       'No meals available in database'
