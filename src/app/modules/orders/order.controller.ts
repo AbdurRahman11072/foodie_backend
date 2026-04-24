@@ -42,6 +42,24 @@ const updateOrder = asyncHandler(async (req, res) => {
 
   customeResponse(res, httpStatus.OK, true, `All orders data`, result);
 });
+const cancelOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const result = await orderService.cancelOrder(id as string);
+
+  customeResponse(res, httpStatus.OK, true, `Cancelled Order`, result);
+});
+
+const UpdateOrderItems = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  console.log(data);
+
+  const result = await orderService.UpdateOrderItems(id as string, data);
+
+  customeResponse(res, httpStatus.OK, true, `Cancelled Order Items`, result);
+});
 
 export const orderController = {
   getAllOrders,
@@ -49,4 +67,6 @@ export const orderController = {
   updateOrder,
   getOrderByUserId,
   getOrderById,
+  cancelOrder,
+  UpdateOrderItems,
 };
