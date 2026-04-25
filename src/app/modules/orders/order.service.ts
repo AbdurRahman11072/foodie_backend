@@ -6,6 +6,9 @@ import { CreateOrderInput } from '../../types/orderData';
 
 const getAllOrders = async () => {
   return await prisma.orders.findMany({
+    orderBy: {
+      updatedAt: 'desc',
+    },
     include: {
       items: true,
     },
@@ -14,6 +17,10 @@ const getAllOrders = async () => {
 
 const getOrderByUserId = async (userId: string) => {
   const order = await prisma.orders.findMany({
+    orderBy: {
+      updatedAt: 'desc',
+    },
+
     where: { userId },
     include: {
       items: true,
@@ -25,6 +32,7 @@ const getOrderByUserId = async (userId: string) => {
   }
   return order;
 };
+
 const getOrderById = async (id: string) => {
   console.log(id);
 
@@ -32,6 +40,9 @@ const getOrderById = async (id: string) => {
     where: { id },
     include: {
       items: true,
+    },
+    orderBy: {
+      updatedAt: 'desc',
     },
   });
 
@@ -70,7 +81,7 @@ const createOrder = async (data: CreateOrderInput) => {
           quantity: item.quantity,
           price: item.price,
           totalPrice: item.totalPrice,
-          status: item.status || 'PREPARING',
+          status: item.status || 'PENDING',
         })),
       },
     },
@@ -145,24 +156,101 @@ const cancelOrder = async (id: string) => {
   return cancelOrder;
 };
 
-const UpdateOrderItems = async (id: string, data: any) => {
+const cancelOrderItems = async (id: string) => {
+  // Check if order item exists
   const isOrderItemExsist = await prisma.orderItems.findFirst({
     where: {
       id,
     },
   });
+
   if (!isOrderItemExsist) {
     throw new customeError(httpStatus.NOT_FOUND, 'Order item not found');
   }
 
-  console.log('order: ', data);
+  const cancellableStatuses = ['PENDING', 'PREPARING'];
 
-  return await prisma.orderItems.update({
-    where: {
-      id,
-    },
-    data,
+  // Check if the specific item can be cancelled
+  if (!cancellableStatuses.includes(isOrderItemExsist.status)) {
+    throw new customeError(
+      httpStatus.BAD_REQUEST,
+      `Order item cannot be cancelled because it is already ${isOrderItemExsist.status}`
+    );
+  }
+
+  const result = await prisma.$transaction(async (tx) => {
+    // Cancel the order item
+    const orderItemCancel = await tx.orderItems.update({
+      where: {
+        id,
+      },
+      data: {
+        status: 'CANCELLED',
+      },
+    });
+
+    // Get the parent order with all items
+    const order = await tx.orders.findUnique({
+      where: {
+        id: orderItemCancel.orderId,
+      },
+      include: {
+        items: true,
+      },
+    });
+
+    if (!order) {
+      throw new customeError(httpStatus.NOT_FOUND, 'Order not found');
+    }
+
+    // Check if all items are cancelled
+    const allItemsCancelled =
+      order.items.length > 0 &&
+      order.items.every((item) => item.status === 'CANCELLED');
+
+    // Update order status if all items are cancelled
+    if (allItemsCancelled && order.status !== 'CANCELLED') {
+      // Check if the order can be cancelled
+      if (!cancellableStatuses.includes(order.status)) {
+        throw new customeError(
+          httpStatus.BAD_REQUEST,
+          `Order cannot be cancelled because it is ${order.status.toLowerCase()}`
+        );
+      }
+
+      // Update the order status
+      const updateOrderStatus = await tx.orders.update({
+        where: {
+          id: orderItemCancel.orderId,
+        },
+        data: {
+          status: 'CANCELLED',
+        },
+      });
+
+      if (!updateOrderStatus) {
+        throw new customeError(
+          httpStatus.BAD_REQUEST,
+          'Failed to update order status'
+        );
+      }
+
+      // Return both the cancelled item and updated order
+      return {
+        cancelledItem: orderItemCancel,
+        order: updateOrderStatus,
+        allItemsCancelled: true,
+      };
+    }
+
+    // If not all items are cancelled, just return the cancelled item
+    return {
+      cancelledItem: orderItemCancel,
+      allItemsCancelled: false,
+    };
   });
+
+  return result;
 };
 export const orderService = {
   getAllOrders,
@@ -171,5 +259,5 @@ export const orderService = {
   getOrderByUserId,
   getOrderById,
   cancelOrder,
-  UpdateOrderItems,
+  cancelOrderItems,
 };

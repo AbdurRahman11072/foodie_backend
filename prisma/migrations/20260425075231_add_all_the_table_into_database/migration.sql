@@ -1,8 +1,11 @@
 -- CreateEnum
-CREATE TYPE "OrderStatus" AS ENUM ('DELIVERING', 'COMPLETE');
+CREATE TYPE "OrderStatus" AS ENUM ('PENDING', 'PREPARING', 'DELIVERING', 'COMPLETE', 'CANCELLED');
 
 -- CreateEnum
-CREATE TYPE "OrderItemStatus" AS ENUM ('PREPARING', 'READY', 'DELIVERED', 'CANCELLED');
+CREATE TYPE "OrderItemStatus" AS ENUM ('PENDING', 'PREPARING', 'READY', 'DELIVERED', 'CANCELLED');
+
+-- CreateEnum
+CREATE TYPE "MealStatus" AS ENUM ('DRFT', 'PUBLISHED');
 
 -- CreateEnum
 CREATE TYPE "Roles" AS ENUM ('USER', 'PROVIDER', 'ADMIN');
@@ -26,7 +29,7 @@ CREATE TABLE "orders" (
     "address" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
     "totalPrice" DOUBLE PRECISION NOT NULL,
-    "status" "OrderStatus" NOT NULL DEFAULT 'DELIVERING',
+    "status" "OrderStatus" NOT NULL DEFAULT 'PENDING',
     "paymentMethod" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -46,7 +49,7 @@ CREATE TABLE "orderItems" (
     "quantity" INTEGER NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "totalPrice" DOUBLE PRECISION NOT NULL,
-    "status" "OrderItemStatus" NOT NULL DEFAULT 'PREPARING',
+    "status" "OrderItemStatus" NOT NULL DEFAULT 'PENDING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -59,6 +62,7 @@ CREATE TABLE "restaurants" (
     "ownerId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "coverImg" TEXT NOT NULL,
+    "avatarImg" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "openingTime" TEXT NOT NULL,
     "closingTime" TEXT NOT NULL,
@@ -82,9 +86,9 @@ CREATE TABLE "meals" (
     "rating" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "available" BOOLEAN NOT NULL,
     "ingredients" TEXT[],
-    "allergens" TEXT[],
     "calories" INTEGER NOT NULL,
     "servingSize" TEXT NOT NULL,
+    "status" "MealStatus" NOT NULL DEFAULT 'DRFT',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -186,13 +190,13 @@ CREATE INDEX "categories_name_idx" ON "categories"("name");
 CREATE INDEX "categories_id_idx" ON "categories"("id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "orders_orderId_key" ON "orders"("orderId");
+
+-- CreateIndex
 CREATE INDEX "orders_userId_idx" ON "orders"("userId");
 
 -- CreateIndex
 CREATE INDEX "orders_status_idx" ON "orders"("status");
-
--- CreateIndex
-CREATE INDEX "orders_orderId_idx" ON "orders"("orderId");
 
 -- CreateIndex
 CREATE INDEX "orderItems_orderId_idx" ON "orderItems"("orderId");

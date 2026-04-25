@@ -50,13 +50,10 @@ const cancelOrder = asyncHandler(async (req, res) => {
   customeResponse(res, httpStatus.OK, true, `Cancelled Order`, result);
 });
 
-const UpdateOrderItems = asyncHandler(async (req, res) => {
+const cancelOrderItems = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
 
-  console.log(data);
-
-  const result = await orderService.UpdateOrderItems(id as string, data);
+  const result = await orderService.cancelOrderItems(id as string);
 
   customeResponse(res, httpStatus.OK, true, `Cancelled Order Items`, result);
 });
@@ -68,5 +65,5 @@ export const orderController = {
   getOrderByUserId,
   getOrderById,
   cancelOrder,
-  UpdateOrderItems,
+  cancelOrderItems,
 };
