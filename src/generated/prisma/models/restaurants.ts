@@ -248,7 +248,7 @@ export type RestaurantsGroupByOutputType = {
   _max: RestaurantsMaxAggregateOutputType | null
 }
 
-export type GetRestaurantsGroupByPayload<T extends restaurantsGroupByArgs> = Prisma.PrismaPromise<
+type GetRestaurantsGroupByPayload<T extends restaurantsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<RestaurantsGroupByOutputType, T['by']> &
       {
