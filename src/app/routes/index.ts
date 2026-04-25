@@ -4,6 +4,7 @@ import { mealRoutes } from '../modules/meals/meals.routes';
 import { ordersRoutes } from '../modules/orders/order.routes';
 import { restaurantRoutes } from '../modules/restaurant/restautant.route';
 import { reviewsRoutes } from '../modules/reviews/reviews.routes';
+import { statsRoutes } from '../modules/stats/stats.route';
 import { uploadRoutes } from '../modules/uploadImage/upload.route';
 import { userRoutes } from '../modules/user/user.routes';
 
@@ -16,5 +17,6 @@ router.use('/category', categoryRoutes);
 router.use('/orders', ordersRoutes);
 router.use('/reviews', reviewsRoutes);
 router.use('/upload-image', uploadRoutes);
+router.use('/stats', statsRoutes);
 
 export const RootRoutes = router;

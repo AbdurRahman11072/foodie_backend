@@ -7,7 +7,7 @@ interface OrderItemInput {
   quantity: number;
   price: number;
   totalPrice: number;
-  status?: 'PREPARING' | 'READY' | 'DELIVERED' | 'CANCELLED';
+  status?: 'PENDING' | 'PREPARING' | 'READY' | 'DELIVERED' | 'CANCELLED';
 }
 
 export interface CreateOrderInput {
@@ -20,3 +20,14 @@ export interface CreateOrderInput {
   paymentMethod: string;
   items: OrderItemInput[];
 }
+
+export type OrderItemStatusType =
+  | 'PENDING'
+  | 'PREPARING'
+  | 'READY'
+  | 'DELIVERED'
+  | 'CANCELLED';
+
+export type orderItemStatus = {
+  status: OrderItemStatusType;
+};

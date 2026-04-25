@@ -62,6 +62,7 @@ const getMealsById = asyncHandler(async (req, res) => {
   }
   customeResponse(res, httpStatus.OK, true, 'All meals data', result);
 });
+
 const getMealsByRestaurantId = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

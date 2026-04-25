@@ -7,7 +7,7 @@ import { userService } from './user.service';
 
 const getAllUser = asyncHandler(async (req, res) => {
   const { page, item } = req.query;
-  console.log(page, item);
+
   const result = await userService.getAllUser();
 
   if (result.length === 0) {
@@ -25,8 +25,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
   const isAdmin = req.user?.role === userRole.admin;
   const isOwner = req.user?.id === id;
-
-  console.log(isAdmin, isOwner);
 
   if (!isAdmin && !isOwner) {
     throw new customeError(

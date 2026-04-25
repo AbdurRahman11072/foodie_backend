@@ -146,28 +146,16 @@ const getMealsById = async (id: string) => {
 };
 
 const getMealsByRestaurantId = async (id: string) => {
-  const restaurantId = await prisma.user.findFirst({
-    where: { id },
-    select: {
-      restaurant: {
+  return await prisma.meals.findMany({
+    where: { restaurantId: id },
+    include: {
+      categories: {
         select: {
           id: true,
+          name: true,
         },
       },
     },
-  });
-
-  const resId = restaurantId?.restaurant?.id;
-
-  if (!restaurantId) {
-    throw new customeError(
-      httpStatus.INTERNAL_SERVER_ERROR,
-      'Something went wrong'
-    );
-  }
-
-  return await prisma.meals.findMany({
-    where: { restaurantId: resId as string },
   });
 };
 
@@ -205,8 +193,6 @@ const updateMealsInfo = async (
   if (data.servingSize !== undefined) updateData.servingSize = data.servingSize;
   if (data.status !== undefined) updateData.status = data.status;
   if (data.rating !== undefined) updateData.rating = data.rating;
-
-  console.log(data.categories);
 
   // Handle categories - similar to createMeals but with 'set' instead of 'connect'
   if (data.categories !== undefined) {

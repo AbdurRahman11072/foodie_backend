@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { orders } from '../../../generated/prisma/client';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
-import { CreateOrderInput } from '../../types/orderData';
+import { CreateOrderInput, orderItemStatus } from '../../types/orderData';
 
 const getAllOrders = async () => {
   return await prisma.orders.findMany({
@@ -33,9 +33,33 @@ const getOrderByUserId = async (userId: string) => {
   return order;
 };
 
-const getOrderById = async (id: string) => {
-  console.log(id);
+const getAllOrderItem = async () => {
+  return await prisma.orderItems.findMany({
+    orderBy: {
+      updatedAt: 'desc',
+    },
+    include: {
+      order: true,
+    },
+  });
+};
 
+const getOrderItemsByRestaurantId = async (restaurantId: string) => {
+  const order = await prisma.orderItems.findMany({
+    orderBy: {
+      updatedAt: 'desc',
+    },
+
+    where: { restaurantId },
+  });
+
+  if (order === null) {
+    throw new customeError(httpStatus.NOT_FOUND, `No order availvable`);
+  }
+  return order;
+};
+
+const getOrderById = async (id: string) => {
   const order = await prisma.orders.findFirst({
     where: { id },
     include: {
@@ -45,8 +69,6 @@ const getOrderById = async (id: string) => {
       updatedAt: 'desc',
     },
   });
-
-  console.log(order);
 
   return order;
 };
@@ -252,12 +274,41 @@ const cancelOrderItems = async (id: string) => {
 
   return result;
 };
+
+const updateOrderItmeStatus = async (id: string, data: orderItemStatus) => {
+  const isOrderItemExist = await prisma.orderItems.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!isOrderItemExist) {
+    throw new customeError(httpStatus.NOT_FOUND, 'Order Item not found. ');
+  }
+  const updatedItem = await prisma.orderItems.update({
+    where: { id },
+    data: {
+      status: data.status,
+    },
+  });
+
+  if (!updatedItem) {
+    throw new customeError(
+      httpStatus.NOT_FOUND,
+      'Order Item not found. Please try to change  another item status'
+    );
+  }
+
+  return updatedItem;
+};
 export const orderService = {
   getAllOrders,
   createOrder,
   updateOrder,
   getOrderByUserId,
+  getOrderItemsByRestaurantId,
   getOrderById,
   cancelOrder,
   cancelOrderItems,
+  updateOrderItmeStatus,
+  getAllOrderItem,
 };
