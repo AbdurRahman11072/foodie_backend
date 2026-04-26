@@ -2,7 +2,7 @@ model reviews {
   id          String   @id @default(uuid())
   userId      String
   userName    String
-  userImg     String
+  userImg     String?
   restaurantId String
   mealId       String
   rating      Int
@@ -12,5 +12,6 @@ model reviews {
 
   user  User @relation(fields: [userId], references: [id], onDelete: Cascade)
   restaurant restaurants @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  meal meals @relation(fields: [mealId], references: [id], onDelete: Cascade)
   
 }

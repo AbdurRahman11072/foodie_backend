@@ -294,6 +294,7 @@ export type mealsWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   categories?: Prisma.CategoriesListRelationFilter
   orderItem?: Prisma.OrderItemsListRelationFilter
+  reviews?: Prisma.ReviewsListRelationFilter
   restaurant?: Prisma.XOR<Prisma.RestaurantsScalarRelationFilter, Prisma.restaurantsWhereInput>
 }
 
@@ -314,6 +315,7 @@ export type mealsOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   categories?: Prisma.categoriesOrderByRelationAggregateInput
   orderItem?: Prisma.orderItemsOrderByRelationAggregateInput
+  reviews?: Prisma.reviewsOrderByRelationAggregateInput
   restaurant?: Prisma.restaurantsOrderByWithRelationInput
 }
 
@@ -337,6 +339,7 @@ export type mealsWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"meals"> | Date | string
   categories?: Prisma.CategoriesListRelationFilter
   orderItem?: Prisma.OrderItemsListRelationFilter
+  reviews?: Prisma.ReviewsListRelationFilter
   restaurant?: Prisma.XOR<Prisma.RestaurantsScalarRelationFilter, Prisma.restaurantsWhereInput>
 }, "id">
 
@@ -398,6 +401,7 @@ export type mealsCreateInput = {
   updatedAt?: Date | string
   categories?: Prisma.categoriesCreateNestedManyWithoutMealsInput
   orderItem?: Prisma.orderItemsCreateNestedManyWithoutMealInput
+  reviews?: Prisma.reviewsCreateNestedManyWithoutMealInput
   restaurant: Prisma.restaurantsCreateNestedOneWithoutMealsInput
 }
 
@@ -418,6 +422,7 @@ export type mealsUncheckedCreateInput = {
   updatedAt?: Date | string
   categories?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
   orderItem?: Prisma.orderItemsUncheckedCreateNestedManyWithoutMealInput
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutMealInput
 }
 
 export type mealsUpdateInput = {
@@ -436,6 +441,7 @@ export type mealsUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
   orderItem?: Prisma.orderItemsUpdateManyWithoutMealNestedInput
+  reviews?: Prisma.reviewsUpdateManyWithoutMealNestedInput
   restaurant?: Prisma.restaurantsUpdateOneRequiredWithoutMealsNestedInput
 }
 
@@ -456,6 +462,7 @@ export type mealsUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
   orderItem?: Prisma.orderItemsUncheckedUpdateManyWithoutMealNestedInput
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutMealNestedInput
 }
 
 export type mealsCreateManyInput = {
@@ -699,6 +706,20 @@ export type EnumMealStatusFieldUpdateOperationsInput = {
   set?: $Enums.MealStatus
 }
 
+export type mealsCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.mealsCreateWithoutReviewsInput, Prisma.mealsUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.mealsCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.mealsWhereUniqueInput
+}
+
+export type mealsUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.mealsCreateWithoutReviewsInput, Prisma.mealsUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.mealsCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.mealsUpsertWithoutReviewsInput
+  connect?: Prisma.mealsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.mealsUpdateToOneWithWhereWithoutReviewsInput, Prisma.mealsUpdateWithoutReviewsInput>, Prisma.mealsUncheckedUpdateWithoutReviewsInput>
+}
+
 export type mealsCreateWithoutCategoriesInput = {
   id?: string
   name: string
@@ -714,6 +735,7 @@ export type mealsCreateWithoutCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItem?: Prisma.orderItemsCreateNestedManyWithoutMealInput
+  reviews?: Prisma.reviewsCreateNestedManyWithoutMealInput
   restaurant: Prisma.restaurantsCreateNestedOneWithoutMealsInput
 }
 
@@ -733,6 +755,7 @@ export type mealsUncheckedCreateWithoutCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItem?: Prisma.orderItemsUncheckedCreateNestedManyWithoutMealInput
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutMealInput
 }
 
 export type mealsCreateOrConnectWithoutCategoriesInput = {
@@ -791,6 +814,7 @@ export type mealsCreateWithoutOrderItemInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   categories?: Prisma.categoriesCreateNestedManyWithoutMealsInput
+  reviews?: Prisma.reviewsCreateNestedManyWithoutMealInput
   restaurant: Prisma.restaurantsCreateNestedOneWithoutMealsInput
 }
 
@@ -810,6 +834,7 @@ export type mealsUncheckedCreateWithoutOrderItemInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   categories?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutMealInput
 }
 
 export type mealsCreateOrConnectWithoutOrderItemInput = {
@@ -843,6 +868,7 @@ export type mealsUpdateWithoutOrderItemInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
+  reviews?: Prisma.reviewsUpdateManyWithoutMealNestedInput
   restaurant?: Prisma.restaurantsUpdateOneRequiredWithoutMealsNestedInput
 }
 
@@ -862,6 +888,7 @@ export type mealsUncheckedUpdateWithoutOrderItemInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutMealNestedInput
 }
 
 export type mealsCreateWithoutRestaurantInput = {
@@ -880,6 +907,7 @@ export type mealsCreateWithoutRestaurantInput = {
   updatedAt?: Date | string
   categories?: Prisma.categoriesCreateNestedManyWithoutMealsInput
   orderItem?: Prisma.orderItemsCreateNestedManyWithoutMealInput
+  reviews?: Prisma.reviewsCreateNestedManyWithoutMealInput
 }
 
 export type mealsUncheckedCreateWithoutRestaurantInput = {
@@ -898,6 +926,7 @@ export type mealsUncheckedCreateWithoutRestaurantInput = {
   updatedAt?: Date | string
   categories?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
   orderItem?: Prisma.orderItemsUncheckedCreateNestedManyWithoutMealInput
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutMealInput
 }
 
 export type mealsCreateOrConnectWithoutRestaurantInput = {
@@ -926,6 +955,98 @@ export type mealsUpdateManyWithWhereWithoutRestaurantInput = {
   data: Prisma.XOR<Prisma.mealsUpdateManyMutationInput, Prisma.mealsUncheckedUpdateManyWithoutRestaurantInput>
 }
 
+export type mealsCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  coverImg: string
+  description: string
+  price: number
+  rating?: number
+  available: boolean
+  ingredients?: Prisma.mealsCreateingredientsInput | string[]
+  calories: number
+  servingSize: string
+  status?: $Enums.MealStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  categories?: Prisma.categoriesCreateNestedManyWithoutMealsInput
+  orderItem?: Prisma.orderItemsCreateNestedManyWithoutMealInput
+  restaurant: Prisma.restaurantsCreateNestedOneWithoutMealsInput
+}
+
+export type mealsUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  restaurantId: string
+  name: string
+  coverImg: string
+  description: string
+  price: number
+  rating?: number
+  available: boolean
+  ingredients?: Prisma.mealsCreateingredientsInput | string[]
+  calories: number
+  servingSize: string
+  status?: $Enums.MealStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  categories?: Prisma.categoriesUncheckedCreateNestedManyWithoutMealsInput
+  orderItem?: Prisma.orderItemsUncheckedCreateNestedManyWithoutMealInput
+}
+
+export type mealsCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.mealsWhereUniqueInput
+  create: Prisma.XOR<Prisma.mealsCreateWithoutReviewsInput, Prisma.mealsUncheckedCreateWithoutReviewsInput>
+}
+
+export type mealsUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.mealsUpdateWithoutReviewsInput, Prisma.mealsUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.mealsCreateWithoutReviewsInput, Prisma.mealsUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.mealsWhereInput
+}
+
+export type mealsUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.mealsWhereInput
+  data: Prisma.XOR<Prisma.mealsUpdateWithoutReviewsInput, Prisma.mealsUncheckedUpdateWithoutReviewsInput>
+}
+
+export type mealsUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  available?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ingredients?: Prisma.mealsUpdateingredientsInput | string[]
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categories?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
+  orderItem?: Prisma.orderItemsUpdateManyWithoutMealNestedInput
+  restaurant?: Prisma.restaurantsUpdateOneRequiredWithoutMealsNestedInput
+}
+
+export type mealsUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  coverImg?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  available?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ingredients?: Prisma.mealsUpdateingredientsInput | string[]
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  servingSize?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMealStatusFieldUpdateOperationsInput | $Enums.MealStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categories?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
+  orderItem?: Prisma.orderItemsUncheckedUpdateManyWithoutMealNestedInput
+}
+
 export type mealsUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -941,6 +1062,7 @@ export type mealsUpdateWithoutCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItem?: Prisma.orderItemsUpdateManyWithoutMealNestedInput
+  reviews?: Prisma.reviewsUpdateManyWithoutMealNestedInput
   restaurant?: Prisma.restaurantsUpdateOneRequiredWithoutMealsNestedInput
 }
 
@@ -960,6 +1082,7 @@ export type mealsUncheckedUpdateWithoutCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItem?: Prisma.orderItemsUncheckedUpdateManyWithoutMealNestedInput
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutMealNestedInput
 }
 
 export type mealsUncheckedUpdateManyWithoutCategoriesInput = {
@@ -1011,6 +1134,7 @@ export type mealsUpdateWithoutRestaurantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.categoriesUpdateManyWithoutMealsNestedInput
   orderItem?: Prisma.orderItemsUpdateManyWithoutMealNestedInput
+  reviews?: Prisma.reviewsUpdateManyWithoutMealNestedInput
 }
 
 export type mealsUncheckedUpdateWithoutRestaurantInput = {
@@ -1029,6 +1153,7 @@ export type mealsUncheckedUpdateWithoutRestaurantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.categoriesUncheckedUpdateManyWithoutMealsNestedInput
   orderItem?: Prisma.orderItemsUncheckedUpdateManyWithoutMealNestedInput
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutMealNestedInput
 }
 
 export type mealsUncheckedUpdateManyWithoutRestaurantInput = {
@@ -1055,11 +1180,13 @@ export type mealsUncheckedUpdateManyWithoutRestaurantInput = {
 export type MealsCountOutputType = {
   categories: number
   orderItem: number
+  reviews: number
 }
 
 export type MealsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   categories?: boolean | MealsCountOutputTypeCountCategoriesArgs
   orderItem?: boolean | MealsCountOutputTypeCountOrderItemArgs
+  reviews?: boolean | MealsCountOutputTypeCountReviewsArgs
 }
 
 /**
@@ -1086,6 +1213,13 @@ export type MealsCountOutputTypeCountOrderItemArgs<ExtArgs extends runtime.Types
   where?: Prisma.orderItemsWhereInput
 }
 
+/**
+ * MealsCountOutputType without action
+ */
+export type MealsCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.reviewsWhereInput
+}
+
 
 export type mealsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1104,6 +1238,7 @@ export type mealsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   categories?: boolean | Prisma.meals$categoriesArgs<ExtArgs>
   orderItem?: boolean | Prisma.meals$orderItemArgs<ExtArgs>
+  reviews?: boolean | Prisma.meals$reviewsArgs<ExtArgs>
   restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.MealsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["meals"]>
@@ -1165,6 +1300,7 @@ export type mealsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type mealsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   categories?: boolean | Prisma.meals$categoriesArgs<ExtArgs>
   orderItem?: boolean | Prisma.meals$orderItemArgs<ExtArgs>
+  reviews?: boolean | Prisma.meals$reviewsArgs<ExtArgs>
   restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.MealsCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1180,6 +1316,7 @@ export type $mealsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     categories: Prisma.$categoriesPayload<ExtArgs>[]
     orderItem: Prisma.$orderItemsPayload<ExtArgs>[]
+    reviews: Prisma.$reviewsPayload<ExtArgs>[]
     restaurant: Prisma.$restaurantsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1593,6 +1730,7 @@ export interface Prisma__mealsClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   categories<T extends Prisma.meals$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.meals$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$categoriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orderItem<T extends Prisma.meals$orderItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.meals$orderItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$orderItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.meals$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.meals$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   restaurant<T extends Prisma.restaurantsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.restaurantsDefaultArgs<ExtArgs>>): Prisma.Prisma__restaurantsClient<runtime.Types.Result.GetResult<Prisma.$restaurantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2083,6 +2221,30 @@ export type meals$orderItemArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.OrderItemsScalarFieldEnum | Prisma.OrderItemsScalarFieldEnum[]
+}
+
+/**
+ * meals.reviews
+ */
+export type meals$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the reviews
+   */
+  select?: Prisma.reviewsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the reviews
+   */
+  omit?: Prisma.reviewsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.reviewsInclude<ExtArgs> | null
+  where?: Prisma.reviewsWhereInput
+  orderBy?: Prisma.reviewsOrderByWithRelationInput | Prisma.reviewsOrderByWithRelationInput[]
+  cursor?: Prisma.reviewsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewsScalarFieldEnum | Prisma.ReviewsScalarFieldEnum[]
 }
 
 /**

@@ -6,6 +6,13 @@ const getAllReviews = async () => {
 };
 
 const createReviews = async (data: reviews) => {
+  const isReviewExist = await prisma.reviews.findFirst({
+    where: {
+      restaurantId: data.restaurantId,
+      userId: data.userId,
+      mealId: data.mealId,
+    },
+  });
   return await prisma.reviews.create({
     data: data,
   });

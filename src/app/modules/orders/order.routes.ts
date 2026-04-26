@@ -27,7 +27,7 @@ router.put('/update-order-items/:id', orderController.cancelOrderItems);
 
 router.patch(
   '/update-order-item-status/:id',
-  orderController.updateOrderItmeStatus
+  orderController.updateOrderItemStatus
 );
 
 export const ordersRoutes = router;

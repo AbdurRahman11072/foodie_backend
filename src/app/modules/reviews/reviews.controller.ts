@@ -10,6 +10,7 @@ const getAllReviews = asyncHandler(async (req, res) => {
 });
 const createReviews = asyncHandler(async (req, res) => {
   const data = req.body;
+  console.log(data);
 
   const result = await reviewsService.createReviews(data);
 

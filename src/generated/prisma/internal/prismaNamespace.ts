@@ -1283,6 +1283,7 @@ export const ReviewsScalarFieldEnum = {
   userName: 'userName',
   userImg: 'userImg',
   restaurantId: 'restaurantId',
+  mealId: 'mealId',
   rating: 'rating',
   description: 'description',
   createdAt: 'createdAt',
