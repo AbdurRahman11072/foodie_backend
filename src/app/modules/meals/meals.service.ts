@@ -208,10 +208,28 @@ const updateMealsInfo = async (
   });
 };
 
+const featuredMeals = async () => {
+  // First, get meals from restaurants with rating > 4
+  const meals = await prisma.meals.findMany({
+    where: {
+      rating: {
+        gt: 4, // rating greater than 4
+      },
+    },
+  });
+
+  // Randomly select 10 meals (or fewer if not enough meals exist)
+  const shuffled = meals.sort(() => 0.5 - Math.random());
+  const randomMeals = shuffled.slice(0, 10);
+
+  return randomMeals;
+};
+
 export const mealsServices = {
   getAllMeals,
   createMeals,
   getMealsById,
   updateMealsInfo,
   getMealsByRestaurantId,
+  featuredMeals,
 };

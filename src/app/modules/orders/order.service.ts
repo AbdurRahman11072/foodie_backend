@@ -181,9 +181,7 @@ const cancelOrder = async (id: string) => {
 const cancelOrderItems = async (id: string) => {
   // Check if order item exists
   const isOrderItemExsist = await prisma.orderItems.findFirst({
-    where: {
-      id,
-    },
+    where: { id },
   });
 
   if (!isOrderItemExsist) {
@@ -192,7 +190,6 @@ const cancelOrderItems = async (id: string) => {
 
   const cancellableStatuses = ['PENDING', 'PREPARING'];
 
-  // Check if the specific item can be cancelled
   if (!cancellableStatuses.includes(isOrderItemExsist.status)) {
     throw new customeError(
       httpStatus.BAD_REQUEST,
@@ -203,36 +200,36 @@ const cancelOrderItems = async (id: string) => {
   const result = await prisma.$transaction(async (tx) => {
     // Cancel the order item
     const orderItemCancel = await tx.orderItems.update({
-      where: {
-        id,
-      },
-      data: {
-        status: 'CANCELLED',
-      },
+      where: { id },
+      data: { status: 'CANCELLED' },
     });
 
-    // Get the parent order with all items
+    // Get the parent order with all items - TypeScript knows this includes items
     const order = await tx.orders.findUnique({
-      where: {
-        id: orderItemCancel.orderId,
-      },
-      include: {
-        items: true,
-      },
+      where: { id: orderItemCancel.orderId },
+      include: { items: true },
     });
 
     if (!order) {
       throw new customeError(httpStatus.NOT_FOUND, 'Order not found');
     }
 
-    // Check if all items are cancelled
-    const allItemsCancelled =
-      order.items.length > 0 &&
-      order.items.every((item) => item.status === 'CANCELLED');
+    // Now TypeScript knows order has items property
+    const allItemsCancelled = order.items.every(
+      (item) => item.status === 'CANCELLED'
+    );
 
-    // Update order status if all items are cancelled
+    // Check if all remaining items are delivered
+    const remainingItems = order.items.filter(
+      (item) => item.status !== 'CANCELLED'
+    );
+
+    const allRemainingItemsDelivered =
+      remainingItems.length > 0 &&
+      remainingItems.every((item) => item.status === 'DELIVERED');
+
+    // If all items are cancelled
     if (allItemsCancelled && order.status !== 'CANCELLED') {
-      // Check if the order can be cancelled
       if (!cancellableStatuses.includes(order.status)) {
         throw new customeError(
           httpStatus.BAD_REQUEST,
@@ -240,32 +237,34 @@ const cancelOrderItems = async (id: string) => {
         );
       }
 
-      // Update the order status
-      const updateOrderStatus = await tx.orders.update({
-        where: {
-          id: orderItemCancel.orderId,
-        },
-        data: {
-          status: 'CANCELLED',
-        },
+      const updatedOrder = await tx.orders.update({
+        where: { id: orderItemCancel.orderId },
+        data: { status: 'CANCELLED' },
       });
 
-      if (!updateOrderStatus) {
-        throw new customeError(
-          httpStatus.BAD_REQUEST,
-          'Failed to update order status'
-        );
-      }
-
-      // Return both the cancelled item and updated order
       return {
         cancelledItem: orderItemCancel,
-        order: updateOrderStatus,
+        order: updatedOrder,
         allItemsCancelled: true,
       };
     }
 
-    // If not all items are cancelled, just return the cancelled item
+    // If all remaining items are delivered, mark order as COMPLETE
+    if (allRemainingItemsDelivered && order.status !== 'COMPLETE') {
+      const updatedOrder = await tx.orders.update({
+        where: { id: orderItemCancel.orderId },
+        data: { status: 'COMPLETE' },
+      });
+
+      return {
+        cancelledItem: orderItemCancel,
+        order: updatedOrder,
+        allItemsCancelled: false,
+        orderCompleted: true,
+      };
+    }
+
+    // If not all items are cancelled or delivered, just return the cancelled item
     return {
       cancelledItem: orderItemCancel,
       allItemsCancelled: false,
@@ -277,28 +276,64 @@ const cancelOrderItems = async (id: string) => {
 
 const updateOrderItmeStatus = async (id: string, data: orderItemStatus) => {
   const isOrderItemExist = await prisma.orderItems.findUnique({
-    where: {
-      id,
-    },
-  });
-  if (!isOrderItemExist) {
-    throw new customeError(httpStatus.NOT_FOUND, 'Order Item not found. ');
-  }
-  const updatedItem = await prisma.orderItems.update({
     where: { id },
-    data: {
-      status: data.status,
-    },
   });
 
-  if (!updatedItem) {
-    throw new customeError(
-      httpStatus.NOT_FOUND,
-      'Order Item not found. Please try to change  another item status'
-    );
+  if (!isOrderItemExist) {
+    throw new customeError(httpStatus.NOT_FOUND, 'Order Item not found.');
   }
 
-  return updatedItem;
+  const result = await prisma.$transaction(async (tx) => {
+    // Update the order item status
+    const updatedItem = await tx.orderItems.update({
+      where: { id },
+      data: {
+        status: data.status,
+      },
+    });
+
+    if (!updatedItem) {
+      throw new customeError(
+        httpStatus.NOT_FOUND,
+        'Order Item not found. Please try to change another item status'
+      );
+    }
+
+    // Get the parent order with all items
+    const order = await tx.orders.findUnique({
+      where: {
+        id: updatedItem.orderId,
+      },
+      include: {
+        items: true,
+      },
+    });
+
+    if (!order) {
+      throw new customeError(httpStatus.NOT_FOUND, 'Order not found');
+    }
+
+    // Check if all items are delivered
+    const allItemsDelivered = order.items.every(
+      (item) => item.status === 'DELIVERED'
+    );
+
+    // If all items are delivered, mark order as COMPLETE
+    if (allItemsDelivered && order.status !== 'COMPLETE') {
+      await tx.orders.update({
+        where: {
+          id: order.id,
+        },
+        data: {
+          status: 'COMPLETE',
+        },
+      });
+    }
+
+    return updatedItem;
+  });
+
+  return result;
 };
 export const orderService = {
   getAllOrders,

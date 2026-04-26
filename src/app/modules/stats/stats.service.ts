@@ -27,7 +27,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
       return {
         totalMeal: mealCount,
         totalOrder: orderItemCount,
-        totalEarning: orderItmeTotalEarning._sum.totalPrice,
+        totalEarning: orderItmeTotalEarning._sum.totalPrice || 0,
       };
     });
     return stats;
@@ -51,7 +51,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
       totalUser: totalUser,
       activeUser: activeUser,
       totalOrder: orderItemCount,
-      totalEarning: orderItmeTotalEarning._sum.totalPrice,
+      totalEarning: orderItmeTotalEarning._sum.totalPrice || 0,
     };
   });
   return stats;

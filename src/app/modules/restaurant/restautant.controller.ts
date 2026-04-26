@@ -88,10 +88,22 @@ const updateRestaurantInfo = asyncHandler(async (req, res) => {
     result
   );
 });
+const featuredRestaurant = asyncHandler(async (req, res) => {
+  const result = await restaurantSevices.featuredRestaurant();
+
+  if (result.length === 0) {
+    throw new customeError(
+      httpStatus.NOT_FOUND,
+      `No restaurant has the requirement to be featured restaurant`
+    );
+  }
+  customeResponse(res, httpStatus.OK, true, 'Featured restaurant data', result);
+});
 
 export const restaurantController = {
   getAllRestaurant,
   createRestaurant,
   getRestaurantById,
   updateRestaurantInfo,
+  featuredRestaurant,
 };

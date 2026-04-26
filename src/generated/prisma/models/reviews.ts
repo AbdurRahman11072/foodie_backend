@@ -36,8 +36,10 @@ export type ReviewsSumAggregateOutputType = {
 
 export type ReviewsMinAggregateOutputType = {
   id: string | null
-  orderId: string | null
   userId: string | null
+  userName: string | null
+  userImg: string | null
+  restaurantId: string | null
   rating: number | null
   description: string | null
   createdAt: Date | null
@@ -46,8 +48,10 @@ export type ReviewsMinAggregateOutputType = {
 
 export type ReviewsMaxAggregateOutputType = {
   id: string | null
-  orderId: string | null
   userId: string | null
+  userName: string | null
+  userImg: string | null
+  restaurantId: string | null
   rating: number | null
   description: string | null
   createdAt: Date | null
@@ -56,8 +60,10 @@ export type ReviewsMaxAggregateOutputType = {
 
 export type ReviewsCountAggregateOutputType = {
   id: number
-  orderId: number
   userId: number
+  userName: number
+  userImg: number
+  restaurantId: number
   rating: number
   description: number
   createdAt: number
@@ -76,8 +82,10 @@ export type ReviewsSumAggregateInputType = {
 
 export type ReviewsMinAggregateInputType = {
   id?: true
-  orderId?: true
   userId?: true
+  userName?: true
+  userImg?: true
+  restaurantId?: true
   rating?: true
   description?: true
   createdAt?: true
@@ -86,8 +94,10 @@ export type ReviewsMinAggregateInputType = {
 
 export type ReviewsMaxAggregateInputType = {
   id?: true
-  orderId?: true
   userId?: true
+  userName?: true
+  userImg?: true
+  restaurantId?: true
   rating?: true
   description?: true
   createdAt?: true
@@ -96,8 +106,10 @@ export type ReviewsMaxAggregateInputType = {
 
 export type ReviewsCountAggregateInputType = {
   id?: true
-  orderId?: true
   userId?: true
+  userName?: true
+  userImg?: true
+  restaurantId?: true
   rating?: true
   description?: true
   createdAt?: true
@@ -193,8 +205,10 @@ export type reviewsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type ReviewsGroupByOutputType = {
   id: string
-  orderId: string
   userId: string
+  userName: string
+  userImg: string
+  restaurantId: string
   rating: number
   description: string
   createdAt: Date
@@ -226,44 +240,55 @@ export type reviewsWhereInput = {
   OR?: Prisma.reviewsWhereInput[]
   NOT?: Prisma.reviewsWhereInput | Prisma.reviewsWhereInput[]
   id?: Prisma.StringFilter<"reviews"> | string
-  orderId?: Prisma.StringFilter<"reviews"> | string
   userId?: Prisma.StringFilter<"reviews"> | string
+  userName?: Prisma.StringFilter<"reviews"> | string
+  userImg?: Prisma.StringFilter<"reviews"> | string
+  restaurantId?: Prisma.StringFilter<"reviews"> | string
   rating?: Prisma.IntFilter<"reviews"> | number
   description?: Prisma.StringFilter<"reviews"> | string
   createdAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  restaurant?: Prisma.XOR<Prisma.RestaurantsScalarRelationFilter, Prisma.restaurantsWhereInput>
 }
 
 export type reviewsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  userName?: Prisma.SortOrder
+  userImg?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  restaurant?: Prisma.restaurantsOrderByWithRelationInput
 }
 
 export type reviewsWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  orderId?: string
   AND?: Prisma.reviewsWhereInput | Prisma.reviewsWhereInput[]
   OR?: Prisma.reviewsWhereInput[]
   NOT?: Prisma.reviewsWhereInput | Prisma.reviewsWhereInput[]
   userId?: Prisma.StringFilter<"reviews"> | string
+  userName?: Prisma.StringFilter<"reviews"> | string
+  userImg?: Prisma.StringFilter<"reviews"> | string
+  restaurantId?: Prisma.StringFilter<"reviews"> | string
   rating?: Prisma.IntFilter<"reviews"> | number
   description?: Prisma.StringFilter<"reviews"> | string
   createdAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "orderId">
+  restaurant?: Prisma.XOR<Prisma.RestaurantsScalarRelationFilter, Prisma.restaurantsWhereInput>
+}, "id">
 
 export type reviewsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  userName?: Prisma.SortOrder
+  userImg?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -280,8 +305,10 @@ export type reviewsScalarWhereWithAggregatesInput = {
   OR?: Prisma.reviewsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.reviewsScalarWhereWithAggregatesInput | Prisma.reviewsScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"reviews"> | string
-  orderId?: Prisma.StringWithAggregatesFilter<"reviews"> | string
   userId?: Prisma.StringWithAggregatesFilter<"reviews"> | string
+  userName?: Prisma.StringWithAggregatesFilter<"reviews"> | string
+  userImg?: Prisma.StringWithAggregatesFilter<"reviews"> | string
+  restaurantId?: Prisma.StringWithAggregatesFilter<"reviews"> | string
   rating?: Prisma.IntWithAggregatesFilter<"reviews"> | number
   description?: Prisma.StringWithAggregatesFilter<"reviews"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"reviews"> | Date | string
@@ -290,18 +317,22 @@ export type reviewsScalarWhereWithAggregatesInput = {
 
 export type reviewsCreateInput = {
   id?: string
-  orderId: string
+  userName: string
+  userImg: string
   rating: number
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewsInput
+  restaurant: Prisma.restaurantsCreateNestedOneWithoutReviewsInput
 }
 
 export type reviewsUncheckedCreateInput = {
   id?: string
-  orderId: string
   userId: string
+  userName: string
+  userImg: string
+  restaurantId: string
   rating: number
   description: string
   createdAt?: Date | string
@@ -310,18 +341,22 @@ export type reviewsUncheckedCreateInput = {
 
 export type reviewsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
+  restaurant?: Prisma.restaurantsUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type reviewsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -330,8 +365,10 @@ export type reviewsUncheckedUpdateInput = {
 
 export type reviewsCreateManyInput = {
   id?: string
-  orderId: string
   userId: string
+  userName: string
+  userImg: string
+  restaurantId: string
   rating: number
   description: string
   createdAt?: Date | string
@@ -340,7 +377,8 @@ export type reviewsCreateManyInput = {
 
 export type reviewsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -349,18 +387,32 @@ export type reviewsUpdateManyMutationInput = {
 
 export type reviewsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ReviewsListRelationFilter = {
+  every?: Prisma.reviewsWhereInput
+  some?: Prisma.reviewsWhereInput
+  none?: Prisma.reviewsWhereInput
+}
+
+export type reviewsOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type reviewsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  userName?: Prisma.SortOrder
+  userImg?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -373,8 +425,10 @@ export type reviewsAvgOrderByAggregateInput = {
 
 export type reviewsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  userName?: Prisma.SortOrder
+  userImg?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -383,8 +437,10 @@ export type reviewsMaxOrderByAggregateInput = {
 
 export type reviewsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  orderId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  userName?: Prisma.SortOrder
+  userImg?: Prisma.SortOrder
+  restaurantId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -395,14 +451,46 @@ export type reviewsSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
 }
 
-export type ReviewsListRelationFilter = {
-  every?: Prisma.reviewsWhereInput
-  some?: Prisma.reviewsWhereInput
-  none?: Prisma.reviewsWhereInput
+export type reviewsCreateNestedManyWithoutRestaurantInput = {
+  create?: Prisma.XOR<Prisma.reviewsCreateWithoutRestaurantInput, Prisma.reviewsUncheckedCreateWithoutRestaurantInput> | Prisma.reviewsCreateWithoutRestaurantInput[] | Prisma.reviewsUncheckedCreateWithoutRestaurantInput[]
+  connectOrCreate?: Prisma.reviewsCreateOrConnectWithoutRestaurantInput | Prisma.reviewsCreateOrConnectWithoutRestaurantInput[]
+  createMany?: Prisma.reviewsCreateManyRestaurantInputEnvelope
+  connect?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
 }
 
-export type reviewsOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+export type reviewsUncheckedCreateNestedManyWithoutRestaurantInput = {
+  create?: Prisma.XOR<Prisma.reviewsCreateWithoutRestaurantInput, Prisma.reviewsUncheckedCreateWithoutRestaurantInput> | Prisma.reviewsCreateWithoutRestaurantInput[] | Prisma.reviewsUncheckedCreateWithoutRestaurantInput[]
+  connectOrCreate?: Prisma.reviewsCreateOrConnectWithoutRestaurantInput | Prisma.reviewsCreateOrConnectWithoutRestaurantInput[]
+  createMany?: Prisma.reviewsCreateManyRestaurantInputEnvelope
+  connect?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+}
+
+export type reviewsUpdateManyWithoutRestaurantNestedInput = {
+  create?: Prisma.XOR<Prisma.reviewsCreateWithoutRestaurantInput, Prisma.reviewsUncheckedCreateWithoutRestaurantInput> | Prisma.reviewsCreateWithoutRestaurantInput[] | Prisma.reviewsUncheckedCreateWithoutRestaurantInput[]
+  connectOrCreate?: Prisma.reviewsCreateOrConnectWithoutRestaurantInput | Prisma.reviewsCreateOrConnectWithoutRestaurantInput[]
+  upsert?: Prisma.reviewsUpsertWithWhereUniqueWithoutRestaurantInput | Prisma.reviewsUpsertWithWhereUniqueWithoutRestaurantInput[]
+  createMany?: Prisma.reviewsCreateManyRestaurantInputEnvelope
+  set?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  disconnect?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  delete?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  connect?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  update?: Prisma.reviewsUpdateWithWhereUniqueWithoutRestaurantInput | Prisma.reviewsUpdateWithWhereUniqueWithoutRestaurantInput[]
+  updateMany?: Prisma.reviewsUpdateManyWithWhereWithoutRestaurantInput | Prisma.reviewsUpdateManyWithWhereWithoutRestaurantInput[]
+  deleteMany?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
+}
+
+export type reviewsUncheckedUpdateManyWithoutRestaurantNestedInput = {
+  create?: Prisma.XOR<Prisma.reviewsCreateWithoutRestaurantInput, Prisma.reviewsUncheckedCreateWithoutRestaurantInput> | Prisma.reviewsCreateWithoutRestaurantInput[] | Prisma.reviewsUncheckedCreateWithoutRestaurantInput[]
+  connectOrCreate?: Prisma.reviewsCreateOrConnectWithoutRestaurantInput | Prisma.reviewsCreateOrConnectWithoutRestaurantInput[]
+  upsert?: Prisma.reviewsUpsertWithWhereUniqueWithoutRestaurantInput | Prisma.reviewsUpsertWithWhereUniqueWithoutRestaurantInput[]
+  createMany?: Prisma.reviewsCreateManyRestaurantInputEnvelope
+  set?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  disconnect?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  delete?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  connect?: Prisma.reviewsWhereUniqueInput | Prisma.reviewsWhereUniqueInput[]
+  update?: Prisma.reviewsUpdateWithWhereUniqueWithoutRestaurantInput | Prisma.reviewsUpdateWithWhereUniqueWithoutRestaurantInput[]
+  updateMany?: Prisma.reviewsUpdateManyWithWhereWithoutRestaurantInput | Prisma.reviewsUpdateManyWithWhereWithoutRestaurantInput[]
+  deleteMany?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
 }
 
 export type reviewsCreateNestedManyWithoutUserInput = {
@@ -447,18 +535,85 @@ export type reviewsUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
 }
 
-export type reviewsCreateWithoutUserInput = {
+export type reviewsCreateWithoutRestaurantInput = {
   id?: string
-  orderId: string
+  userName: string
+  userImg: string
+  rating: number
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutReviewsInput
+}
+
+export type reviewsUncheckedCreateWithoutRestaurantInput = {
+  id?: string
+  userId: string
+  userName: string
+  userImg: string
   rating: number
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
+export type reviewsCreateOrConnectWithoutRestaurantInput = {
+  where: Prisma.reviewsWhereUniqueInput
+  create: Prisma.XOR<Prisma.reviewsCreateWithoutRestaurantInput, Prisma.reviewsUncheckedCreateWithoutRestaurantInput>
+}
+
+export type reviewsCreateManyRestaurantInputEnvelope = {
+  data: Prisma.reviewsCreateManyRestaurantInput | Prisma.reviewsCreateManyRestaurantInput[]
+  skipDuplicates?: boolean
+}
+
+export type reviewsUpsertWithWhereUniqueWithoutRestaurantInput = {
+  where: Prisma.reviewsWhereUniqueInput
+  update: Prisma.XOR<Prisma.reviewsUpdateWithoutRestaurantInput, Prisma.reviewsUncheckedUpdateWithoutRestaurantInput>
+  create: Prisma.XOR<Prisma.reviewsCreateWithoutRestaurantInput, Prisma.reviewsUncheckedCreateWithoutRestaurantInput>
+}
+
+export type reviewsUpdateWithWhereUniqueWithoutRestaurantInput = {
+  where: Prisma.reviewsWhereUniqueInput
+  data: Prisma.XOR<Prisma.reviewsUpdateWithoutRestaurantInput, Prisma.reviewsUncheckedUpdateWithoutRestaurantInput>
+}
+
+export type reviewsUpdateManyWithWhereWithoutRestaurantInput = {
+  where: Prisma.reviewsScalarWhereInput
+  data: Prisma.XOR<Prisma.reviewsUpdateManyMutationInput, Prisma.reviewsUncheckedUpdateManyWithoutRestaurantInput>
+}
+
+export type reviewsScalarWhereInput = {
+  AND?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
+  OR?: Prisma.reviewsScalarWhereInput[]
+  NOT?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
+  id?: Prisma.StringFilter<"reviews"> | string
+  userId?: Prisma.StringFilter<"reviews"> | string
+  userName?: Prisma.StringFilter<"reviews"> | string
+  userImg?: Prisma.StringFilter<"reviews"> | string
+  restaurantId?: Prisma.StringFilter<"reviews"> | string
+  rating?: Prisma.IntFilter<"reviews"> | number
+  description?: Prisma.StringFilter<"reviews"> | string
+  createdAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
+}
+
+export type reviewsCreateWithoutUserInput = {
+  id?: string
+  userName: string
+  userImg: string
+  rating: number
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  restaurant: Prisma.restaurantsCreateNestedOneWithoutReviewsInput
+}
+
 export type reviewsUncheckedCreateWithoutUserInput = {
   id?: string
-  orderId: string
+  userName: string
+  userImg: string
+  restaurantId: string
   rating: number
   description: string
   createdAt?: Date | string
@@ -491,22 +646,55 @@ export type reviewsUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.reviewsUpdateManyMutationInput, Prisma.reviewsUncheckedUpdateManyWithoutUserInput>
 }
 
-export type reviewsScalarWhereInput = {
-  AND?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
-  OR?: Prisma.reviewsScalarWhereInput[]
-  NOT?: Prisma.reviewsScalarWhereInput | Prisma.reviewsScalarWhereInput[]
-  id?: Prisma.StringFilter<"reviews"> | string
-  orderId?: Prisma.StringFilter<"reviews"> | string
-  userId?: Prisma.StringFilter<"reviews"> | string
-  rating?: Prisma.IntFilter<"reviews"> | number
-  description?: Prisma.StringFilter<"reviews"> | string
-  createdAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"reviews"> | Date | string
+export type reviewsCreateManyRestaurantInput = {
+  id?: string
+  userId: string
+  userName: string
+  userImg: string
+  rating: number
+  description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type reviewsUpdateWithoutRestaurantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
+}
+
+export type reviewsUncheckedUpdateWithoutRestaurantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type reviewsUncheckedUpdateManyWithoutRestaurantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type reviewsCreateManyUserInput = {
   id?: string
-  orderId: string
+  userName: string
+  userImg: string
+  restaurantId: string
   rating: number
   description: string
   createdAt?: Date | string
@@ -515,16 +703,20 @@ export type reviewsCreateManyUserInput = {
 
 export type reviewsUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurant?: Prisma.restaurantsUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type reviewsUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -533,7 +725,9 @@ export type reviewsUncheckedUpdateWithoutUserInput = {
 
 export type reviewsUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userImg?: Prisma.StringFieldUpdateOperationsInput | string
+  restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -544,67 +738,84 @@ export type reviewsUncheckedUpdateManyWithoutUserInput = {
 
 export type reviewsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  orderId?: boolean
   userId?: boolean
+  userName?: boolean
+  userImg?: boolean
+  restaurantId?: boolean
   rating?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviews"]>
 
 export type reviewsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  orderId?: boolean
   userId?: boolean
+  userName?: boolean
+  userImg?: boolean
+  restaurantId?: boolean
   rating?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviews"]>
 
 export type reviewsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  orderId?: boolean
   userId?: boolean
+  userName?: boolean
+  userImg?: boolean
+  restaurantId?: boolean
   rating?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["reviews"]>
 
 export type reviewsSelectScalar = {
   id?: boolean
-  orderId?: boolean
   userId?: boolean
+  userName?: boolean
+  userImg?: boolean
+  restaurantId?: boolean
   rating?: boolean
   description?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type reviewsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "userId" | "rating" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["reviews"]>
+export type reviewsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "userName" | "userImg" | "restaurantId" | "rating" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["reviews"]>
 export type reviewsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
 }
 export type reviewsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
 }
 export type reviewsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  restaurant?: boolean | Prisma.restaurantsDefaultArgs<ExtArgs>
 }
 
 export type $reviewsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "reviews"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    restaurant: Prisma.$restaurantsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    orderId: string
     userId: string
+    userName: string
+    userImg: string
+    restaurantId: string
     rating: number
     description: string
     createdAt: Date
@@ -1004,6 +1215,7 @@ readonly fields: reviewsFieldRefs;
 export interface Prisma__reviewsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  restaurant<T extends Prisma.restaurantsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.restaurantsDefaultArgs<ExtArgs>>): Prisma.Prisma__restaurantsClient<runtime.Types.Result.GetResult<Prisma.$restaurantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1034,8 +1246,10 @@ export interface Prisma__reviewsClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface reviewsFieldRefs {
   readonly id: Prisma.FieldRef<"reviews", 'String'>
-  readonly orderId: Prisma.FieldRef<"reviews", 'String'>
   readonly userId: Prisma.FieldRef<"reviews", 'String'>
+  readonly userName: Prisma.FieldRef<"reviews", 'String'>
+  readonly userImg: Prisma.FieldRef<"reviews", 'String'>
+  readonly restaurantId: Prisma.FieldRef<"reviews", 'String'>
   readonly rating: Prisma.FieldRef<"reviews", 'Int'>
   readonly description: Prisma.FieldRef<"reviews", 'String'>
   readonly createdAt: Prisma.FieldRef<"reviews", 'DateTime'>

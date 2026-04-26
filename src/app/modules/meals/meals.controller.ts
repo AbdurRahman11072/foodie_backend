@@ -96,10 +96,23 @@ const updateMealsInfo = asyncHandler(async (req, res) => {
   );
 });
 
+const featuredMeals = asyncHandler(async (req, res) => {
+  const result = await mealsServices.featuredMeals();
+
+  if (result.length === 0) {
+    throw new customeError(
+      httpStatus.NOT_FOUND,
+      `No meal has the requirement to be featured meal`
+    );
+  }
+  customeResponse(res, httpStatus.OK, true, 'Featured meals data', result);
+});
+
 export const mealsController = {
   getAllMeals,
   createMeals,
   getMealsById,
   updateMealsInfo,
   getMealsByRestaurantId,
+  featuredMeals,
 };

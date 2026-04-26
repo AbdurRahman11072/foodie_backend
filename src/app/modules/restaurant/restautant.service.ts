@@ -5,7 +5,18 @@ import userRole from '../../constant';
 import customeError from '../../error/customeError';
 
 const getAllRestaurant = async () => {
-  return await prisma.restaurants.findMany();
+  const allRestaurants = await prisma.restaurants.findMany({
+    include: {
+      _count: {
+        select: {
+          meals: true, // Count of meals
+          orderItem: true, // Count of order items
+        },
+      },
+    },
+  });
+
+  return allRestaurants;
 };
 
 const createRestaurant = async (data: restaurants) => {
@@ -44,6 +55,33 @@ const createRestaurant = async (data: restaurants) => {
 const getRestaurantById = async (id: string) => {
   return await prisma.restaurants.findFirst({
     where: { id },
+    include: {
+      meals: {
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          price: true,
+          rating: true,
+          coverImg: true,
+          categories: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      reviews: {
+        take: 10,
+        select: {
+          userName: true,
+          rating: true,
+          description: true,
+          updatedAt: true,
+        },
+      },
+    },
   });
 };
 
@@ -73,10 +111,27 @@ const updateRestaurantInfo = async (
     data: data,
   });
 };
+const featuredRestaurant = async () => {
+  // First, get meals from restaurants with rating > 4
+  const meals = await prisma.restaurants.findMany({
+    where: {
+      rating: {
+        gt: 4, // rating greater than 4
+      },
+    },
+  });
+
+  // Randomly select 10 meals (or fewer if not enough meals exist)
+  const shuffled = meals.sort(() => 0.5 - Math.random());
+  const randomMeals = shuffled.slice(0, 10);
+
+  return randomMeals;
+};
 
 export const restaurantSevices = {
   getAllRestaurant,
   createRestaurant,
   getRestaurantById,
   updateRestaurantInfo,
+  featuredRestaurant,
 };

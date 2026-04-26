@@ -15,8 +15,10 @@ model restaurants {
 
   meals       meals[]
   orderItem orderItems[]
+  reviews reviews[]
   
   user  User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
 
   @@index([ownerId])
   @@index([name])

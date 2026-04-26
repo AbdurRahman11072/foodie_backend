@@ -6,6 +6,7 @@ import { mealsController } from './meals.controller';
 const router: Router = Router();
 
 router.get('/', mealsController.getAllMeals);
+router.get('/featured-meal', mealsController.featuredMeals);
 router.get('/:id', mealsController.getMealsById);
 router.get('/restaurant/:id', mealsController.getMealsByRestaurantId);
 router.post(
