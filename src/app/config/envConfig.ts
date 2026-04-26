@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-dotenv.config({ path: path.join(process.cwd() + '.env') });
+dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 export const envConfig = {
   PORT: process.env.PORT,
@@ -17,4 +17,8 @@ export const envConfig = {
   ADMIN_NAME: process.env.ADMIN_NAME,
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 };
