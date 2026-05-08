@@ -65,10 +65,16 @@ const getMealsById = asyncHandler(async (req, res) => {
 
 const getMealsByRestaurantId = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
 
-  const result = await mealsServices.getMealsByRestaurantId(id as string);
+  const result = await mealsServices.getMealsByRestaurantId(
+    id as string,
+    page,
+    limit
+  );
 
-  if (result === null) {
+  if (result.data.length === 0) {
     throw new customeError(
       httpStatus.NOT_FOUND,
       `No meals with the ( id:${id} ) available in database`

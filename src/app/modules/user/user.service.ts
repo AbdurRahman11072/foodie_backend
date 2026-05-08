@@ -2,8 +2,13 @@ import httpStatus from 'http-status';
 import { prisma } from '../../../lib/prisma';
 import customeError from '../../error/customeError';
 
-const getAllUser = async () => {
-  return await prisma.user.findMany({
+const getAllUser = async (page: number = 1, limit: number = 10) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.user.findMany({
+    skip,
+    take,
     include: {
       restaurant: {
         select: {
@@ -12,6 +17,10 @@ const getAllUser = async () => {
       },
     },
   });
+
+  const total = await prisma.user.count();
+
+  return { data, total };
 };
 
 const updateUser = async (id: string, data: any) => {

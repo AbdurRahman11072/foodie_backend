@@ -73,7 +73,11 @@ const getAllMeals = async ({
     },
   });
 
-  const totalMeal = await prisma.meals.count();
+  const totalMeal = await prisma.meals.count({
+    where: {
+      AND: andConditions,
+    },
+  });
   return { data, totalMeal };
 };
 
@@ -145,9 +149,21 @@ const getMealsById = async (id: string) => {
   });
 };
 
-const getMealsByRestaurantId = async (id: string) => {
-  return await prisma.meals.findMany({
+const getMealsByRestaurantId = async (
+  id: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.meals.findMany({
     where: { restaurantId: id },
+    skip,
+    take,
+    orderBy: {
+      createdAt: 'desc',
+    },
     include: {
       categories: {
         select: {
@@ -157,6 +173,12 @@ const getMealsByRestaurantId = async (id: string) => {
       },
     },
   });
+
+  const total = await prisma.meals.count({
+    where: { restaurantId: id },
+  });
+
+  return { data, total };
 };
 
 const updateMealsInfo = async (

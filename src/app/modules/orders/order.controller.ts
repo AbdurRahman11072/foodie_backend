@@ -5,14 +5,20 @@ import customeResponse from '../../utils/response';
 import { orderService } from './order.service';
 
 const getAllOrders = asyncHandler(async (req, res) => {
-  const result = await orderService.getAllOrders();
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
+
+  const result = await orderService.getAllOrders(page, limit);
 
   customeResponse(res, httpStatus.OK, true, `All orders data`, result);
 });
 const getAllOrderItem = asyncHandler(async (req, res) => {
-  const result = await orderService.getAllOrderItem();
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
 
-  if (result.length === 0) {
+  const result = await orderService.getAllOrderItem(page, limit);
+
+  if (result.data.length === 0) {
     throw new customeError(httpStatus.NOT_FOUND, 'No order items found');
   }
 
@@ -27,8 +33,14 @@ const getAllOrderItem = asyncHandler(async (req, res) => {
 
 const getOrderByUserId = asyncHandler(async (req, res) => {
   const { userId } = req.params;
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
 
-  const result = await orderService.getOrderByUserId(userId as string);
+  const result = await orderService.getOrderByUserId(
+    userId as string,
+    page,
+    limit
+  );
 
   customeResponse(res, httpStatus.OK, true, ` orders data found`, result);
 });
@@ -42,8 +54,14 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 const getOrderItemsByRestaurantId = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
 
-  const result = await orderService.getOrderItemsByRestaurantId(id as string);
+  const result = await orderService.getOrderItemsByRestaurantId(
+    id as string,
+    page,
+    limit
+  );
 
   customeResponse(res, httpStatus.OK, true, ` orders data found`, result);
 });

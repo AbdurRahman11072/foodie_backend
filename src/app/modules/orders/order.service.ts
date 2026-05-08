@@ -9,8 +9,13 @@ import {
   isTerminalOrderStatus,
 } from '../../utils/orderStatusHelper';
 
-const getAllOrders = async () => {
-  return await prisma.orders.findMany({
+const getAllOrders = async (page: number = 1, limit: number = 10) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.orders.findMany({
+    skip,
+    take,
     orderBy: {
       updatedAt: 'desc',
     },
@@ -18,10 +23,23 @@ const getAllOrders = async () => {
       items: true,
     },
   });
+
+  const total = await prisma.orders.count();
+
+  return { data, total };
 };
 
-const getOrderByUserId = async (userId: string) => {
-  const order = await prisma.orders.findMany({
+const getOrderByUserId = async (
+  userId: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.orders.findMany({
+    skip,
+    take,
     orderBy: {
       updatedAt: 'desc',
     },
@@ -58,14 +76,20 @@ const getOrderByUserId = async (userId: string) => {
     },
   });
 
-  if (order === null) {
-    throw new customeError(httpStatus.NOT_FOUND, `Can't find this order`);
-  }
-  return order;
+  const total = await prisma.orders.count({
+    where: { userId },
+  });
+
+  return { data, total };
 };
 
-const getAllOrderItem = async () => {
-  return await prisma.orderItems.findMany({
+const getAllOrderItem = async (page: number = 1, limit: number = 10) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.orderItems.findMany({
+    skip,
+    take,
     orderBy: {
       updatedAt: 'desc',
     },
@@ -73,10 +97,23 @@ const getAllOrderItem = async () => {
       order: true,
     },
   });
+
+  const total = await prisma.orderItems.count();
+
+  return { data, total };
 };
 
-const getOrderItemsByRestaurantId = async (restaurantId: string) => {
-  const order = await prisma.orderItems.findMany({
+const getOrderItemsByRestaurantId = async (
+  restaurantId: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.orderItems.findMany({
+    skip,
+    take,
     orderBy: {
       updatedAt: 'desc',
     },
@@ -84,10 +121,11 @@ const getOrderItemsByRestaurantId = async (restaurantId: string) => {
     where: { restaurantId },
   });
 
-  if (order === null) {
-    throw new customeError(httpStatus.NOT_FOUND, `No order availvable`);
-  }
-  return order;
+  const total = await prisma.orderItems.count({
+    where: { restaurantId },
+  });
+
+  return { data, total };
 };
 
 const getOrderById = async (id: string) => {

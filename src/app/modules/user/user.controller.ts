@@ -6,12 +6,13 @@ import customeResponse from '../../utils/response';
 import { userService } from './user.service';
 
 const getAllUser = asyncHandler(async (req, res) => {
-  const { page, item } = req.query;
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
 
-  const result = await userService.getAllUser();
+  const result = await userService.getAllUser(page, limit);
 
-  if (result.length === 0) {
-    throw new customeError(httpStatus.NOT_FOUND, 'No user available');
+  if (result.data.length === 0) {
+    throw new customeError(httpStatus.NOT_FOUND, 'No users found');
   }
 
   customeResponse(res, httpStatus.OK, true, 'Data found', result);

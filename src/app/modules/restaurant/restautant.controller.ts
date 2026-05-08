@@ -6,12 +6,15 @@ import customeResponse from '../../utils/response';
 import { restaurantSevices } from './restautant.service';
 
 const getAllRestaurant = asyncHandler(async (req, res) => {
-  const result = await restaurantSevices.getAllRestaurant();
+  const page = req.query.page ? parseInt(req.query.page as string) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
 
-  if (result.length === 0) {
+  const result = await restaurantSevices.getAllRestaurant(page, limit);
+
+  if (result.data.length === 0) {
     throw new customeError(
       httpStatus.NOT_FOUND,
-      'Not restaurant available in database'
+      'No restaurants available in database'
     );
   }
   customeResponse(res, httpStatus.OK, true, 'All restaurant data', result);

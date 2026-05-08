@@ -4,8 +4,13 @@ import { prisma } from '../../../lib/prisma';
 import userRole from '../../constant';
 import customeError from '../../error/customeError';
 
-const getAllRestaurant = async () => {
-  const allRestaurants = await prisma.restaurants.findMany({
+const getAllRestaurant = async (page: number = 1, limit: number = 10) => {
+  const skip = (page - 1) * limit;
+  const take = limit;
+
+  const data = await prisma.restaurants.findMany({
+    skip,
+    take,
     include: {
       _count: {
         select: {
@@ -16,7 +21,9 @@ const getAllRestaurant = async () => {
     },
   });
 
-  return allRestaurants;
+  const total = await prisma.restaurants.count();
+
+  return { data, total };
 };
 
 const createRestaurant = async (data: restaurants) => {
