@@ -1,19 +1,19 @@
-import { betterAuth } from 'better-auth';
-import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { admin } from 'better-auth/plugins';
-import { prisma } from './prisma';
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { admin } from "better-auth/plugins";
+import { prisma } from "./prisma";
 // If your Prisma file is located elsewhere, you can change the path
 
 export const auth = betterAuth({
   baseURL: `${process.env.BACKEND_URL}/api/auth`,
-  trustedOrigins: [`${process.env.FRONTEND_URL}`, 'http://localhost:3000'],
+  trustedOrigins: [`${process.env.FRONTEND_URL}`, "http://localhost:3000"],
   database: prismaAdapter(prisma, {
-    provider: 'postgresql', // or "mysql", "postgresql", ...etc
+    provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
   user: {
     additionalFields: {
       restaurantId: {
-        type: 'string',
+        type: "string",
       },
     },
   },
@@ -28,10 +28,19 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    defaultCookieAttributes: {
-      sameSite: 'none',  // ✅ Changed from 'lax' to 'none'
-      secure: true,       // ✅ Required when using sameSite: 'none'
-    },
+    // Use stricter cookies in production (requires HTTPS).
+    // For local development over HTTP, fall back to `lax` and `secure: false`.
+    defaultCookieAttributes:
+      process.env.NODE_ENV === "production" ||
+      (process.env.BACKEND_URL || "").startsWith("https")
+        ? {
+            sameSite: "none",
+            secure: true,
+          }
+        : {
+            sameSite: "lax",
+            secure: false,
+          },
   },
   plugins: [admin()],
 });
