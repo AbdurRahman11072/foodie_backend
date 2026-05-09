@@ -6,14 +6,13 @@ import globalErrorHandler from './app/middleware/globalErrorHandler';
 import notFound from './app/middleware/notFound';
 import { RootRoutes } from './app/routes';
 
-import { envConfig } from './app/config/envConfig';
 import { auth } from './lib/auth';
 
 const app: Application = express();
 
 app.use(
   cors({
-    origin: envConfig.FRONTEND_URL, // Your frontend URL
+    origin: ['http://localhost:3000', process.env.FRONTEND_URL as string], // Your frontend URL
     credentials: true,
   })
 );
