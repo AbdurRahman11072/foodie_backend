@@ -27,11 +27,11 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  // advanced: {
-  //   defaultCookieAttributes: {
-  //     sameSite: 'lax',
-  //     secure: true,
-  //   },
-  // },
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: 'none',  // ✅ Changed from 'lax' to 'none'
+      secure: true,       // ✅ Required when using sameSite: 'none'
+    },
+  },
   plugins: [admin()],
 });
