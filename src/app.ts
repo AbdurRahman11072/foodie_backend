@@ -1,30 +1,30 @@
-import { toNodeHandler } from 'better-auth/node';
-import cors from 'cors';
-import express, { Application } from 'express';
-import httpStatus from 'http-status';
-import globalErrorHandler from './app/middleware/globalErrorHandler';
-import notFound from './app/middleware/notFound';
-import { RootRoutes } from './app/routes';
+import { toNodeHandler } from "better-auth/node";
+import cors from "cors";
+import express, { Application } from "express";
+import httpStatus from "http-status";
+import globalErrorHandler from "./app/middleware/globalErrorHandler";
+import notFound from "./app/middleware/notFound";
+import { RootRoutes } from "./app/routes";
 
-import { auth } from './lib/auth';
+import { auth } from "./lib/auth";
 
 const app: Application = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', process.env.FRONTEND_URL as string], // Your frontend URL
+    origin: ["http://localhost:3000", process.env.FRONTEND_URL as string], // Your frontend URL
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 
-app.all('/api/auth/*spalt', toNodeHandler(auth));
-app.use('/api/v1', RootRoutes);
+app.use("/api/auth", toNodeHandler(auth));
+app.use("/api/v1", RootRoutes);
 
-app.get('/', async (req, res) => {
+app.get("/", async (req, res) => {
   res.status(httpStatus.OK).json({
     success: true,
-    message: 'Welcome to foodie',
+    message: "Welcome to foodie",
     data: null,
   });
 });

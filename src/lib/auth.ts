@@ -28,19 +28,20 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    // Use stricter cookies in production (requires HTTPS).
-    // For local development over HTTP, fall back to `lax` and `secure: false`.
-    defaultCookieAttributes:
-      process.env.NODE_ENV === "production" ||
-      (process.env.BACKEND_URL || "").startsWith("https")
-        ? {
-            sameSite: "none",
-            secure: true,
-          }
-        : {
-            sameSite: "lax",
-            secure: false,
-          },
+    crossSubDomainCookies: {
+      // Enable only when a cookie domain is explicitly provided via env
+      enabled: Boolean(process.env.NEXT_PUBLIC_COOKIE_DOMAIN),
+      // Only include the `domain` key when an env value is present —
+      // this avoids assigning `undefined` which breaks with
+      // `exactOptionalPropertyTypes: true`.
+      ...(process.env.NEXT_PUBLIC_COOKIE_DOMAIN
+        ? { domain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN }
+        : {}),
+    },
+    useSecureCookies: process.env.NODE_ENV === "production",
+    defaultCookieAttributes: {
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    },
   },
   plugins: [admin()],
 });
