@@ -28,8 +28,15 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    crossSubDomainCookies: {
-      enabled: true,
+    // Remove crossSubDomainCookies — it only works for subdomains
+    // (like app.example.com → api.example.com), not for completely
+    // different domains like yours.
+
+    defaultCookieAttributes: {
+      sameSite: "none", // allows cross-site cookie sending
+      secure: true, // required whenever sameSite is "none"
+      httpOnly: true, // security best practice
+      partitioned: true, // for CHIPS / newer browser support
     },
   },
   plugins: [admin()],
