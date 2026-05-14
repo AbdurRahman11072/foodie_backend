@@ -14,7 +14,20 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", process.env.FRONTEND_URL as string], // Your frontend URL
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        process.env.FRONTEND_URL,
+        "https://foodie-client-one.vercel.app"
+      ].filter(Boolean);
+      
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );

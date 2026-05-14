@@ -6,7 +6,11 @@ import { prisma } from "./prisma";
 
 export const auth = betterAuth({
   baseURL: `${process.env.BETTER_AUTH_URL}`,
-  trustedOrigins: [`${process.env.BACKEND_URL}`, `${process.env.FRONTEND_URL}`],
+  trustedOrigins: [
+    `${process.env.BACKEND_URL}`, 
+    `${process.env.FRONTEND_URL}`,
+    "https://foodie-client-one.vercel.app"
+  ],
 
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
@@ -30,8 +34,15 @@ export const auth = betterAuth({
   },
   advanced: {
     useSecureCookies: process.env.NODE_ENV === "production",
+    disableCSRFCheck: true,
     cookies: {
       sessionToken: {
+        attributes: {
+          sameSite: "none",
+          secure: true,
+        },
+      },
+      state: {
         attributes: {
           sameSite: "none",
           secure: true,
