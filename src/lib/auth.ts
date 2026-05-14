@@ -4,7 +4,7 @@ import { admin } from "better-auth/plugins";
 import { prisma } from "./prisma";
 
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: "https://foodie-client-one.vercel.app/api/auth",
   secret: process.env.BETTER_AUTH_SECRET,
   
   trustedOrigins: [
