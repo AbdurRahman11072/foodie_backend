@@ -29,23 +29,12 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    // disableCSRFCheck: true,
-    useSecureCookies: false,
+    useSecureCookies: process.env.NODE_ENV === "production",
     cookies: {
-      state: {
-        attributes: {
-          sameSite: "none",
-          secure: true,
-          httpOnly: true,
-          path: "/",
-        },
-      },
       sessionToken: {
         attributes: {
           sameSite: "none",
           secure: true,
-          httpOnly: true,
-          path: "/",
         },
       },
     },

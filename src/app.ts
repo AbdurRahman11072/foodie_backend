@@ -10,6 +10,8 @@ import { auth } from "./lib/auth";
 
 const app: Application = express();
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: ["http://localhost:3000", process.env.FRONTEND_URL as string], // Your frontend URL
