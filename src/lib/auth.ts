@@ -4,15 +4,15 @@ import { admin } from "better-auth/plugins";
 import { prisma } from "./prisma";
 
 export const auth = betterAuth({
-  baseURL: "https://foodie-client-one.vercel.app/api/auth",
+  baseURL: process.env.BACKEND_URL as string,
   secret: process.env.BETTER_AUTH_SECRET,
-  
+
   trustedOrigins: [
     process.env.FRONTEND_URL as string,
     process.env.BACKEND_URL as string,
-    "https://foodie-client-one.vercel.app",
+
     "http://localhost:3000",
-    "http://localhost:3001"
+    "http://localhost:3001",
   ].filter(Boolean),
 
   database: prismaAdapter(prisma, {
@@ -39,23 +39,10 @@ export const auth = betterAuth({
   },
 
   advanced: {
-    useSecureCookies: process.env.NODE_ENV === "production",
-    // We disable CSRF check specifically for cross-domain support if needed
-    // better-auth handles this securely even with check disabled in many setups
-    disableCSRFCheck: true,
-    cookies: {
-      sessionToken: {
-        attributes: {
-          sameSite: "none",
-          secure: true,
-        },
-      },
-      state: {
-        attributes: {
-          sameSite: "none",
-          secure: true,
-        },
-      },
+    defaultCookieAttributes: {
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
+      partitioned: process.env.NODE_ENV === "production",
     },
   },
 
