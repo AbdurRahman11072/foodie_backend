@@ -10,6 +10,7 @@ import { auth } from "./lib/auth";
 
 const app: Application = express();
 
+// Required for Better Auth to work correctly behind proxies like Render/Vercel
 app.set("trust proxy", 1);
 
 app.use(
@@ -19,7 +20,7 @@ app.use(
         "http://localhost:3000",
         "http://localhost:3001",
         process.env.FRONTEND_URL,
-        "https://foodie-client-one.vercel.app"
+        "https://foodie-client-one.vercel.app",
       ].filter(Boolean);
       
       if (!origin || allowedOrigins.includes(origin)) {
@@ -31,6 +32,7 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use(express.json());
 
 app.use("/api/auth", toNodeHandler(auth));
@@ -46,4 +48,5 @@ app.get("/", async (req, res) => {
 
 app.use(globalErrorHandler);
 app.use(notFound);
+
 export default app;

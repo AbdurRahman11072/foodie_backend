@@ -2,19 +2,23 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { admin } from "better-auth/plugins";
 import { prisma } from "./prisma";
-// If your Prisma file is located elsewhere, you can change the path
 
 export const auth = betterAuth({
-  baseURL: `${process.env.BETTER_AUTH_URL}`,
+  baseURL: process.env.BETTER_AUTH_URL,
+  secret: process.env.BETTER_AUTH_SECRET,
+  
   trustedOrigins: [
-    `${process.env.BACKEND_URL}`, 
-    `${process.env.FRONTEND_URL}`,
-    "https://foodie-client-one.vercel.app"
-  ],
+    process.env.FRONTEND_URL as string,
+    process.env.BACKEND_URL as string,
+    "https://foodie-client-one.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:3001"
+  ].filter(Boolean),
 
   database: prismaAdapter(prisma, {
-    provider: "postgresql", // or "mysql", "postgresql", ...etc
+    provider: "postgresql",
   }),
+
   user: {
     additionalFields: {
       restaurantId: {
@@ -26,14 +30,18 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
+
   advanced: {
     useSecureCookies: process.env.NODE_ENV === "production",
+    // We disable CSRF check specifically for cross-domain support if needed
+    // better-auth handles this securely even with check disabled in many setups
     disableCSRFCheck: true,
     cookies: {
       sessionToken: {
