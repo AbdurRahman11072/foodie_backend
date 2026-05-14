@@ -197,7 +197,7 @@ foodie_backend/
 
 ## 🔗 Related
 
-- **Frontend:** [foodieClient_test](https://github.com/AbdurRahman11072/foodieClient_test) — Next.js 16 + Tailwind CSS
+- **Frontend:** [foodieClient](https://github.com/AbdurRahman11072/foodieClient) — Next.js 16 + Tailwind CSS
 - **Frontend Live URL:** [foodie-client-one.vercel.app](https://foodie-client-one.vercel.app)
 
 ---
