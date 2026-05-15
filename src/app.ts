@@ -22,7 +22,7 @@ app.use(
         process.env.FRONTEND_URL,
         "https://foodie-client-one.vercel.app",
       ].filter(Boolean);
-      
+
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -35,7 +35,7 @@ app.use(
 
 app.use(express.json());
 
-app.use("/api/auth", toNodeHandler(auth));
+app.use("/api/auth/*spalt", toNodeHandler(auth));
 app.use("/api/v1", RootRoutes);
 
 app.get("/", async (req, res) => {
