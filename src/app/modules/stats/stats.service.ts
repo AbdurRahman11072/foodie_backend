@@ -1,9 +1,11 @@
-import { prisma } from '../../../lib/prisma';
-import userRole from '../../constant';
+import { prisma } from "../../../lib/prisma";
+import userRole from "../../constant";
 
 const getAllStats = async (restaurantId: string, role: string) => {
+  // Fix: Proper date calculation for last 7 days
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  sevenDaysAgo.setHours(0, 0, 0, 0); // Start of the day
 
   if (role === userRole.provider) {
     const stats = await prisma.$transaction(async (tx) => {
@@ -13,10 +15,10 @@ const getAllStats = async (restaurantId: string, role: string) => {
       const orderItemCount = await tx.orderItems.count({
         where: { restaurantId },
       });
-      const orderItmeTotalEarning = await tx.orderItems.aggregate({
+      const orderItemTotalEarning = await tx.orderItems.aggregate({
         where: {
           restaurantId,
-          status: 'DELIVERED',
+          status: "DELIVERED",
         },
         _sum: {
           totalPrice: true,
@@ -27,38 +29,46 @@ const getAllStats = async (restaurantId: string, role: string) => {
       const last7DaysOrders = await tx.orderItems.findMany({
         where: {
           restaurantId,
-          status: 'DELIVERED',
-          createdAt: { gte: sevenDaysAgo },
+          status: "DELIVERED",
+          createdAt: {
+            gte: sevenDaysAgo,
+          },
         },
         select: {
           createdAt: true,
           totalPrice: true,
         },
+        orderBy: {
+          createdAt: "asc", // Order by date ascending
+        },
       });
 
       // Top 5 meals
       const topMealsData = await tx.orderItems.groupBy({
-        by: ['mealId', 'mealName'],
+        by: ["mealId", "mealName"],
         where: { restaurantId },
         _count: { mealId: true },
         orderBy: {
-          _count: { mealId: 'desc' },
+          _count: { mealId: "desc" },
         },
         take: 5,
       });
 
       // Order status distribution
       const orderStatusDistribution = await tx.orderItems.groupBy({
-        by: ['status'],
+        by: ["status"],
         where: { restaurantId },
         _count: { status: true },
       });
 
+      // Process revenue data to group by date
+      const revenueData = processRevenueByDate(last7DaysOrders, sevenDaysAgo);
+
       return {
         totalMeal: mealCount,
         totalOrder: orderItemCount,
-        totalEarning: orderItmeTotalEarning._sum.totalPrice || 0,
-        revenueData: last7DaysOrders,
+        totalEarning: orderItemTotalEarning._sum.totalPrice || 0,
+        revenueData,
         topMeals: topMealsData,
         orderStatusDistribution,
       };
@@ -66,55 +76,98 @@ const getAllStats = async (restaurantId: string, role: string) => {
     return stats;
   }
 
-  const stats = await prisma.$transaction(async (tx) => {
-    const totalUser = await tx.user.count();
-    const activeUser = await tx.user.count({
-      where: { banned: false },
-    });
-    const orderItemCount = await tx.orderItems.count();
-    const orderItmeTotalEarning = await tx.orderItems.aggregate({
-      _sum: { totalPrice: true },
-    });
+  if (role === userRole.admin) {
+    const stats = await prisma.$transaction(async (tx) => {
+      const totalUser = await tx.user.count();
+      const activeUser = await tx.user.count({
+        where: { banned: false },
+      });
+      const totalRestaurant = await tx.restaurants.count();
+      const orderItemCount = await tx.orderItems.count();
+      const orderItemTotalEarning = await tx.orderItems.aggregate({
+        where: {
+          status: "DELIVERED",
+        },
+        _sum: { totalPrice: true },
+      });
 
-    // Daily revenue for the last 7 days (Platform wide)
-    const last7DaysOrders = await tx.orderItems.findMany({
-      where: {
-        status: 'DELIVERED',
-        createdAt: { gte: sevenDaysAgo },
-      },
-      select: {
-        createdAt: true,
-        totalPrice: true,
-      },
-    });
+      // Daily revenue for the last 7 days (Platform wide)
+      const last7DaysOrders = await tx.orderItems.findMany({
+        where: {
+          status: "DELIVERED",
+          createdAt: {
+            gte: sevenDaysAgo,
+          },
+        },
+        select: {
+          createdAt: true,
+          totalPrice: true,
+        },
+        orderBy: {
+          createdAt: "asc", // Order by date ascending
+        },
+      });
 
-    // Top 5 meals (Platform wide)
-    const topMealsData = await tx.orderItems.groupBy({
-      by: ['mealId', 'mealName'],
-      _count: { mealId: true },
-      orderBy: {
-        _count: { mealId: 'desc' },
-      },
-      take: 5,
-    });
+      // Top 5 meals (Platform wide)
+      const topMealsData = await tx.orderItems.groupBy({
+        by: ["mealId", "mealName"],
+        _count: { mealId: true },
+        orderBy: {
+          _count: { mealId: "desc" },
+        },
+        take: 5,
+      });
 
-    // Order status distribution (Platform wide)
-    const orderStatusDistribution = await tx.orderItems.groupBy({
-      by: ['status'],
-      _count: { status: true },
-    });
+      // Order status distribution (Platform wide)
+      const orderStatusDistribution = await tx.orderItems.groupBy({
+        by: ["status"],
+        _count: { status: true },
+      });
 
-    return {
-      totalUser: totalUser,
-      activeUser: activeUser,
-      totalOrder: orderItemCount,
-      totalEarning: orderItmeTotalEarning._sum.totalPrice || 0,
-      revenueData: last7DaysOrders,
-      topMeals: topMealsData,
-      orderStatusDistribution,
-    };
+      // Process revenue data to group by date
+      const revenueData = processRevenueByDate(last7DaysOrders, sevenDaysAgo);
+
+      return {
+        totalUser,
+        activeUser,
+        totalRestaurant,
+        totalOrder: orderItemCount,
+        totalEarning: orderItemTotalEarning._sum.totalPrice || 0,
+        revenueData,
+        topMeals: topMealsData,
+        orderStatusDistribution,
+      };
+    });
+    return stats;
+  }
+
+  throw new Error("Invalid role");
+};
+
+// Helper function to process and group revenue by date
+const processRevenueByDate = (orders: any[], startDate: Date) => {
+  // Create a map for the last 7 days with 0 revenue
+  const revenueMap = new Map();
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + i);
+    const dateKey = date.toISOString().split("T")[0]; // YYYY-MM-DD format
+    revenueMap.set(dateKey, 0);
+  }
+
+  // Sum up the revenue for each day
+  orders.forEach((order) => {
+    const dateKey = order.createdAt.toISOString().split("T")[0];
+    if (revenueMap.has(dateKey)) {
+      revenueMap.set(dateKey, revenueMap.get(dateKey) + order.totalPrice);
+    }
   });
-  return stats;
+
+  // Convert map to array format suitable for charts
+  return Array.from(revenueMap, ([date, revenue]) => ({
+    date,
+    revenue: revenue || 0,
+  }));
 };
 
 export const statsService = {

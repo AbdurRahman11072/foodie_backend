@@ -1,9 +1,9 @@
-import httpStatus from 'http-status';
-import userRole from '../../constant';
-import customeError from '../../error/customeError';
-import asyncHandler from '../../utils/asyncHandler';
-import customeResponse from '../../utils/response';
-import { userService } from './user.service';
+import httpStatus from "http-status";
+import userRole from "../../constant";
+import customeError from "../../error/customeError";
+import asyncHandler from "../../utils/asyncHandler";
+import customeResponse from "../../utils/response";
+import { userService } from "./user.service";
 
 const getAllUser = asyncHandler(async (req, res) => {
   const page = req.query.page ? parseInt(req.query.page as string) : 1;
@@ -12,10 +12,10 @@ const getAllUser = asyncHandler(async (req, res) => {
   const result = await userService.getAllUser(page, limit);
 
   if (result.data.length === 0) {
-    throw new customeError(httpStatus.NOT_FOUND, 'No users found');
+    throw new customeError(httpStatus.NOT_FOUND, "No users found");
   }
 
-  customeResponse(res, httpStatus.OK, true, 'Data found', result);
+  customeResponse(res, httpStatus.OK, true, "Data found", result);
 });
 
 // ??  * Updates a user's information with role-based permission checks.
@@ -30,21 +30,21 @@ const updateUser = asyncHandler(async (req, res) => {
   if (!isAdmin && !isOwner) {
     throw new customeError(
       httpStatus.UNAUTHORIZED,
-      'You do not have permission to update this user'
+      "You do not have permission to update this user",
     );
   }
 
-  if (data.role === 'admin' && !isAdmin) {
+  if (data.role === "admin" && !isAdmin) {
     throw new customeError(
       httpStatus.UNAUTHORIZED,
-      'Only administrators can update user roles'
+      "Only administrators can update user roles",
     );
   }
 
   if (!isAdmin && data?.banned !== undefined) {
     throw new customeError(
       httpStatus.UNAUTHORIZED,
-      'Only administrators can ban or unban users'
+      "Only administrators can ban or unban users",
     );
   }
 
@@ -54,8 +54,8 @@ const updateUser = asyncHandler(async (req, res) => {
     res,
     httpStatus.OK,
     true,
-    'User info updated successfully',
-    result
+    "User info updated successfully",
+    result,
   );
 });
 
@@ -69,12 +69,12 @@ const getUserById = asyncHandler(async (req, res) => {
   if (!isOwner && !isAdmin) {
     throw new customeError(
       httpStatus.FORBIDDEN,
-      'Your not the onwer of the data you want to access. Please try a with vaild account'
+      "Your not the onwer of the data you want to access. Please try a with vaild account",
     );
   }
   const result = await userService.getUserById(id as string);
 
-  customeResponse(res, httpStatus.OK, true, 'User found', result);
+  customeResponse(res, httpStatus.OK, true, "User found", result);
 });
 
 export const userController = {
