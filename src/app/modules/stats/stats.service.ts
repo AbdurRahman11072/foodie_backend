@@ -5,7 +5,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
   // Fix: Proper date calculation for last 7 days
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-  sevenDaysAgo.setHours(0, 0, 0, 0); // Start of the day
+  sevenDaysAgo.setHours(0, 0, 0, 0);
 
   if (role === userRole.provider) {
     const stats = await prisma.$transaction(async (tx) => {
@@ -39,7 +39,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
           totalPrice: true,
         },
         orderBy: {
-          createdAt: "asc", // Order by date ascending
+          createdAt: "asc",
         },
       });
 
@@ -61,7 +61,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
         _count: { status: true },
       });
 
-      // Process revenue data to group by date
+      // Process revenue data to group by date - convert to ISO strings
       const revenueData = processRevenueByDate(last7DaysOrders, sevenDaysAgo);
 
       return {
@@ -104,7 +104,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
           totalPrice: true,
         },
         orderBy: {
-          createdAt: "asc", // Order by date ascending
+          createdAt: "asc",
         },
       });
 
@@ -124,7 +124,7 @@ const getAllStats = async (restaurantId: string, role: string) => {
         _count: { status: true },
       });
 
-      // Process revenue data to group by date
+      // Process revenue data to group by date - convert to ISO strings
       const revenueData = processRevenueByDate(last7DaysOrders, sevenDaysAgo);
 
       return {
@@ -148,25 +148,34 @@ const getAllStats = async (restaurantId: string, role: string) => {
 const processRevenueByDate = (orders: any[], startDate: Date) => {
   // Create a map for the last 7 days with 0 revenue
   const revenueMap = new Map();
+
   for (let i = 0; i < 7; i++) {
     const date = new Date(startDate);
     date.setDate(date.getDate() + i);
-    const dateKey = date.toISOString().split("T")[0]; // YYYY-MM-DD format
+    // Use local date string format
+    const dateKey = date.toLocaleDateString("en-CA"); // YYYY-MM-DD format
     revenueMap.set(dateKey, 0);
   }
 
   // Sum up the revenue for each day
   orders.forEach((order) => {
-    const dateKey = order.createdAt.toISOString().split("T")[0];
-    if (revenueMap.has(dateKey)) {
-      revenueMap.set(dateKey, revenueMap.get(dateKey) + order.totalPrice);
+    // Convert Prisma date to JavaScript Date safely
+    const orderDate = new Date(order.createdAt);
+    if (!isNaN(orderDate.getTime())) {
+      const dateKey = orderDate.toLocaleDateString("en-CA");
+      if (revenueMap.has(dateKey)) {
+        revenueMap.set(
+          dateKey,
+          revenueMap.get(dateKey) + (order.totalPrice || 0),
+        );
+      }
     }
   });
 
   // Convert map to array format suitable for charts
   return Array.from(revenueMap, ([date, revenue]) => ({
     date,
-    revenue: revenue || 0,
+    revenue: Number(revenue.toFixed(2)), // Ensure proper number format
   }));
 };
 

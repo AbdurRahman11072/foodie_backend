@@ -1,6 +1,5 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { nextCookies } from "better-auth/next-js";
 import { admin } from "better-auth/plugins";
 import { prisma } from "./prisma";
 
@@ -39,25 +38,5 @@ export const auth = betterAuth({
     },
   },
 
-  advanced: {
-    crossSubDomainCookies: {
-      enabled: true,
-      // domain: process.env.COOKIE_DOMAIN || undefined,
-    },
-    cookie: {
-      sameSite: "none",
-      secure: true,
-      domain: process.env.FRONTEND_URL as string,
-      path: "/",
-    },
-    useSecureCookies: true,
-    defaultCookieAttributes: {
-      secure: true,
-      // httpOnly: true,
-      sameSite: "none", // Allows CORS-based cookie sharing across subdomains
-      // partitioned: true, // New browser standards will mandate this for foreign cookies
-    },
-  },
-
-  plugins: [admin(), nextCookies()],
+  plugins: [admin()],
 });

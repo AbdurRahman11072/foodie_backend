@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import httpStatus from 'http-status';
-import { auth } from '../../lib/auth';
-import customeError from '../error/customeError';
+import { NextFunction, Request, Response } from "express";
+import httpStatus from "http-status";
+import { auth } from "../../lib/auth";
+import customeError from "../error/customeError";
 
 const authMiddleware = (role: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -13,7 +13,7 @@ const authMiddleware = (role: string[]) => {
       if (!session) {
         throw new customeError(
           httpStatus.NOT_FOUND,
-          'Unauthorized user. Please log in first'
+          "Unauthorized user. Please log in first",
         );
       }
 
@@ -21,18 +21,18 @@ const authMiddleware = (role: string[]) => {
         id: session?.user?.id as string,
         name: session?.user?.name as string,
         email: session?.user?.email as string,
-        role: session?.user?.role as 'user' | 'provider' | 'admin',
+        role: session?.user?.role as "user" | "provider" | "admin",
         restaurantId: session.user.restaurantId as string,
         banned: session?.user?.banned as boolean,
       };
 
       if (!role.includes(session?.user?.role as string)) {
-        throw new customeError(httpStatus.FORBIDDEN, 'Unauthorized access');
+        throw new customeError(httpStatus.FORBIDDEN, "Unauthorized access");
       }
 
       next();
     } catch (error) {
-      throw new customeError(httpStatus.FORBIDDEN, 'Unauthorized access');
+      throw new customeError(httpStatus.FORBIDDEN, "Unauthorized access");
     }
   };
 };

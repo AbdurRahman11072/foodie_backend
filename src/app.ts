@@ -1,4 +1,5 @@
 import { toNodeHandler } from "better-auth/node";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application } from "express";
 import httpStatus from "http-status";
@@ -33,6 +34,7 @@ app.use(
   }),
 );
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth/*spalt", toNodeHandler(auth));
