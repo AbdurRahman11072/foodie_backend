@@ -47,7 +47,7 @@ export const auth = betterAuth({
     cookie: {
       sameSite: "none",
       secure: true,
-      // domain: process.env.COOKIE_DOMAIN || undefined,
+      domain: process.env.FRONTEND_URL as string,
       path: "/",
     },
     useSecureCookies: true,
